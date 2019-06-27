@@ -1,16 +1,39 @@
-import SplitLayout from './SplitLayout';
-import CommentBlock from './CommentBlock';
-import { Component } from 'react';
-import Box from '@material-ui/core/Box';
+/*  Primary layout component.  Does stuff.
+ *
+ *  Expected props:
+ *   - a name (technically a pageId.  Looks for comment data based on this, yes.)
+ *   - content, probably. idk yet.
+ *
+ * REVIEW:  Component vs PureComponent; probably a bad idea to spam pures before
+ *          you figure things out.
+ *
+ * NOTE: Makes the assumption that the commentable content does not change in any
+ *       meaningful way post-mount (i.e. commentable components don't move around,
+ *       no new commentable components spawn).  Can easily be modified to account
+ *       for change, but leaving as is for now because I can't imagine a scenario
+ *       that doesn't seem like a UX nightmare + dun wanna update.
+ */
 
-class CommentLayout extends Component {
+
+import { PureComponent, cloneElement } from 'react';
+import Box from '@material-ui/core/Box';
+import PropTypes from 'prop-types';
+import SplitLayout from './SplitLayout';
+import Commentable from './Commentable';
+import CommentBlock from './CommentBlock';
+
+class CommentLayout extends PureComponent {
+
+  static propTypes = {
+    pageId: PropTypes.string.isRequired,
+    content: PropTypes.element
+  }
 
   constructor(props) {
     super(props);
     this.state = {
-      content: props.content,
       selected: props.selected,
-      commentData: props.cdata,
+      commentData: {},
       commentableSubtrees: {}
     }
     this.setSelected = this.setSelected.bind(this);
@@ -18,6 +41,42 @@ class CommentLayout extends Component {
 
   componentDidMount() {
     this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content).subtrees});
+  }
+
+  /**
+   * Rebuild content.
+   */
+  makeContent(node = this.props.content, key = "0") {
+    if(!node.props) {
+      return (
+        <p key={key}>{node}</p>
+      )
+    }
+    let { children } = node.props;
+    if(Array.isArray(children)) {
+      children = children.map(function(child, index) {
+        return this.makeContent(child, key + index);
+      }, this);
+    }
+
+    if(node.props.commentable) {
+      const isSelected = (node.props.id === this.state.selected);
+      const props = {
+        key: key,
+        component: node.type,
+        selected: isSelected,
+        ...node.props
+      }
+      return(
+        <Commentable {...props} setSelected={this.setSelected}>
+          {children}
+        </Commentable>
+      )
+    } else {
+      return(
+        cloneElement(node, {key: key, ...node.props}, children)
+      )
+    }
   }
 
   /* returns:
@@ -29,22 +88,24 @@ class CommentLayout extends Component {
    * REVIEW: this makes me a little itchy.  the "all" property is included
    *         to account for skipped generations (i.e. the given node is not
    *         commentable, but in the next step up, we still want to know its
-   *         children.)  Context of use limited almost entirely to the recursion
-   *         itself.  Also, so many deca
+   *         children.)  As context of use seems limited entirely to the recursion
+   *         itself, consider using only as a helper function.  idk.
    */
   getCommentableSubtrees(node) {
-    const children = node.props.children;
-    let id = node.props.id;
+    if(!node.props) return;
+    const { children, id } = node.props;
     let ids = (id ? [id] : []);
     let subtrees = {};
     if(Array.isArray(children)) {
       children.forEach(function(child, index) {
         let childSubtrees = this.getCommentableSubtrees(child);
-        ids = ids.concat(childSubtrees.all);
-        subtrees = {...subtrees, ...childSubtrees.subtrees};
+        if(childSubtrees) {
+          ids = ids.concat(childSubtrees.all);
+          subtrees = {...subtrees, ...childSubtrees.subtrees};
+        }
       }, this);
     }
-    if(node.type.type && node.type.type.name === "Commentable") {
+    if(node.props.commentable === true) {
       subtrees[id] = ids;
     }
     return {
@@ -53,17 +114,20 @@ class CommentLayout extends Component {
     }
   }
 
-  setSelected(e) {
-    let selected = this.state.commentableSubtrees[e.target.id];
-    this.setState({selected: selected});
+  getSelectedSubtree() {
+    return this.state.commentableSubtrees[this.state.selected];
+  }
+
+  setSelected(id = undefined) {
+    this.setState({selected: id});
   }
 
   render() {
-    let content =
+    const content =
       <Box onClick={this.setSelected}>
-        {this.state.content}
+        {this.makeContent()}
       </Box>
-    let comments = <CommentBlock data={this.state.commentData} selected={this.state.selected}/>;
+    const comments = <CommentBlock data={this.state.commentData} selected={this.getSelectedSubtree()}/>;
     return(
       <SplitLayout left={content} right={comments} rightWidth="0.4" />
     );

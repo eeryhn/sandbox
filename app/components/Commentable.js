@@ -1,7 +1,4 @@
-/*  TODO: - Styling
- *
- *
- * REVIEW: - Using a workaround (onMouseOver, onMouseOut toggles) to handle hover
+/* REVIEW: - Using a workaround (onMouseOver, onMouseOut toggles) to handle hover
  *           state in order to prevent bubbling.  Look into alternate solutions.
  */
 
@@ -17,15 +14,17 @@ const useStyles = makeStyles(theme => ({
   hover: {
     background: 'rgba(170, 203, 255, 0.1)'
   },
-  active: {
+  selected: {
     background: 'rgba(170, 203, 255, 0.3)'
   }
 }));
 
 function Commentable(props) {
-  const classes = useStyles();
-  const [active, setActive] =  useState(false);
   const [hover, setHover] = useState(false);
+  const [renders, setRenders] = useState(0);
+  const classes = useStyles();
+
+  const {id, selected, setSelected} = props;
 
   function handleMouseOver(e) {
     e.stopPropagation();
@@ -35,11 +34,19 @@ function Commentable(props) {
     setHover(false);
   }
 
+  function handleClick(e) {
+    e.stopPropagation();
+    setSelected(id)
+  }
+
   return(
-    <Box component={props.component} id={props.id} className={`${classes.container} ${active ? classes.active : ""} ${hover ? classes.hover : ""}`}
-    onMouseOver={(e) => handleMouseOver(e)} onMouseOut={() => handleMouseOut()}>
+    <props.component id={id}
+    className={`${classes.container} ${selected ? classes.selected : ""} ${hover ? classes.hover : ""}`}
+    onMouseOver={(e) => handleMouseOver(e)}
+    onMouseOut={() => handleMouseOut()}
+    onClick={(e) => handleClick(e)}>
       {props.children}
-    </Box>
+    </props.component>
   )
 }
 

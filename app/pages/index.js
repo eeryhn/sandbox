@@ -6,9 +6,9 @@ const content =
   <div>
     <h1>Hello World</h1>
     <div>
-      <Commentable component="p" id="test">
+      <p id="test" commentable={true}>
         Welcome to my playground?  Kind of messy and dusty and built from scrapmetal, sawdust, and the questionable gluestick I found in my desk a few years ago.
-      </Commentable>
+      </p>
       <p>
         Not really.  I haven't seen a gluestick in years.
       </p>
@@ -21,18 +21,18 @@ const content =
         You never know what's out there, right?  So this is me, sharing.
       </p>
 
-      <Commentable component="div" id="1">
-        <Commentable component="h3" id="2">And all this sidebar nonsense is...</Commentable>
-        <Commentable component="div" id="3">
-          <Commentable component="p" id="4">
+      <div id="1" commentable={true}>
+        <h3 id="2" commentable={true}>And all this sidebar nonsense is...</h3>
+        <div>
+          <p id="4" commentable={true}>
             A few years ago - and it's kind of alarming that it's really been a few years now - I was ripping apart the PHP documentation trying to find
             information on this or that.  Mind, my experience with official docs up to that point was more or less limited to the Java docs.
-          </Commentable>
-          <Commentable component="p" id="5">I still have nightmares</Commentable>
-          <Commentable component="p" id="6">
+          </p>
+          <p id="5" commentable={true}>I still have nightmares</p>
+          <p id="6" commentable={true}>
             Actually that's a joke.  The Java documentation is home to me.  PHP not so much, but my point is actually that I'd never seen comments on
             a manual.  The idea was entirely foreign to me.  The idea that I would find answers there even more so.
-          </Commentable>
+          </p>
           <p>
             It probably shouldn't have been surprising.  I would argue manuals should at least try to be the end all be all of knowledge
             about a thing, and if enough people share a problem that they'd feel inclined to comment about it, maybe it's time for revision.
@@ -48,14 +48,20 @@ const content =
             be fun to see traces of thoughts on what we're reading, as we're reading.  Our windows (or my windows) stay large enough these days to entertain the idea.
             As for mobile...maybe we're getting there.  In the meantime, I wouldn't expect any of this to work on a phone for...ever.
           </p>
-          <Commentable component="p" id="7">
+          <p id="7" commentable={true}>
             So that's it.  Welcome to prototype 0.01 (not that anybody asked, but 0.00 was a bigger flop) and my box of gimmicks.
-          </Commentable>
-        </Commentable>
-      </Commentable>
+          </p>
+        </div>
+      </div>
 
-      <div>
-        <h3></h3>
+      <div id="double-test" commentable={true}>
+        <h3>Tests and some such somethings</h3>
+        Every now and again you'll want to do something like, idk, make a div and
+        give it content, and then give it children, and maybe it'll get a little
+        confused because one of its children.
+        <p>Or maybe many of its children?</p>
+        Are not actually nodes.  We want to make sure we have these cases handled
+        otherwise they'll come back and haunt us in our sleep.
       </div>
     </div>
   </div>
