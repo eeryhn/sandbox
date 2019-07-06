@@ -16,7 +16,7 @@ class CommentBlock extends Component {
 
     const dummyData = {
       "0" : {
-        "children": [1, 2, 3]
+        "children": [1, 2, 3, 5, 6, 4]
       },
       "1" : {
         "data": {
@@ -36,6 +36,27 @@ class CommentBlock extends Component {
         "data": {
           "content": "So this isn't entirely accurate, right?  Because if you take X, Y, and Z and solve for A, then you get X = go away and Y = up yours.",
           "block": "5"
+        },
+        "children": []
+      },
+      "4" : {
+        "data": {
+          "content": "I'm attached to a block called test :3",
+          "block": "test"
+        },
+        "children": []
+      },
+      "5" : {
+        "data": {
+          "content": "I am also attached to a test block",
+          "block": "test"
+        },
+        "children": []
+      },
+      "6" : {
+        "data": {
+          "content": "Helloooooo",
+          "block": "double-test"
         },
         "children": []
       },

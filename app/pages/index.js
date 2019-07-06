@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Commentable from '../components/Commentable';
 
 const content =
-  <div>
+  <div id="0" commentable={true}>
     <h1>Hello World</h1>
     <div>
       <p id="test" commentable={true}>

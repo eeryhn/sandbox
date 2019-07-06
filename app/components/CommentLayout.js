@@ -14,7 +14,6 @@
  *       that doesn't seem like a UX nightmare + dun wanna update.
  */
 
-
 import { PureComponent, cloneElement } from 'react';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
@@ -40,7 +39,11 @@ class CommentLayout extends PureComponent {
   }
 
   componentDidMount() {
-    this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content).subtrees});
+    this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content)});
+  }
+
+  getInitialProps() {
+
   }
 
   /**
@@ -94,31 +97,32 @@ class CommentLayout extends PureComponent {
   getCommentableSubtrees(node) {
     if(!node.props) return;
     const { children, id } = node.props;
+    if(id === 'root') {
+      console.warn("Detected node with ID 'root'.  Please rename, yes?")
+    }
     let ids = (id ? [id] : []);
     let subtrees = {};
     if(Array.isArray(children)) {
       children.forEach(function(child, index) {
         let childSubtrees = this.getCommentableSubtrees(child);
         if(childSubtrees) {
-          ids = ids.concat(childSubtrees.all);
-          subtrees = {...subtrees, ...childSubtrees.subtrees};
+          ids = ids.concat(childSubtrees['root']);
+          subtrees = {...subtrees, ...childSubtrees};
         }
       }, this);
     }
     if(node.props.commentable === true) {
       subtrees[id] = ids;
     }
-    return {
-      subtrees: subtrees,
-      all: ids
-    }
+    subtrees['root'] = ids;
+    return subtrees;
   }
 
   getSelectedSubtree() {
     return this.state.commentableSubtrees[this.state.selected];
   }
 
-  setSelected(id = undefined) {
+  setSelected(id = "root") {
     this.setState({selected: id});
   }
 

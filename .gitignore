@@ -95,3 +95,4 @@ typings/
 .DS_Store
 samples
 dbconnector.js
+knexfile.js
