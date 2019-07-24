@@ -2,12 +2,12 @@
  *
  *  Expected props:
  *   - a name (technically a pageId.  Looks for comment data based on this, yes.)
- *   - content, probably. idk yet.
+ *   - content, probably. idk yet.  Technically it works on a blank page...
  *
  * REVIEW:  Component vs PureComponent; probably a bad idea to spam pures before
  *          you figure things out.
  *
- * NOTE: Makes the assumption that the commentable content does not change in any
+ * NOTE: Assumes that the commentable content does not change in any
  *       meaningful way post-mount (i.e. commentable components don't move around,
  *       no new commentable components spawn).  Can easily be modified to account
  *       for change, but leaving as is for now because I can't imagine a scenario
@@ -39,6 +39,12 @@ class CommentLayout extends PureComponent {
   }
 
   componentDidMount() {
+    this.commentableNodes = {};
+    this.content =
+      <Box onClick={this.setSelected}>
+        {this.makeContent()}
+      </Box>;
+
     this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content)});
   }
 
@@ -47,7 +53,7 @@ class CommentLayout extends PureComponent {
   }
 
   /**
-   * Rebuild content.
+   * Rebuild content, setup refs.
    */
   makeContent(node = this.props.content, key = "0") {
     if(!node.props) {
@@ -63,15 +69,15 @@ class CommentLayout extends PureComponent {
     }
 
     if(node.props.commentable) {
-      const isSelected = (node.props.id === this.state.selected);
       const props = {
         key: key,
         component: node.type,
-        selected: isSelected,
         ...node.props
       }
       return(
-        <Commentable {...props} setSelected={this.setSelected}>
+        <Commentable {...props}
+        setSelected={this.setSelected}
+        ref={ elt => this.commentableNodes[node.props.id] = elt }>
           {children}
         </Commentable>
       )
@@ -87,12 +93,6 @@ class CommentLayout extends PureComponent {
    *               commentable children up to the given node.
    *     ids:      an array listing all commentable components up to the given
    *               node
-   *
-   * REVIEW: this makes me a little itchy.  the "all" property is included
-   *         to account for skipped generations (i.e. the given node is not
-   *         commentable, but in the next step up, we still want to know its
-   *         children.)  As context of use seems limited entirely to the recursion
-   *         itself, consider using only as a helper function.  idk.
    */
   getCommentableSubtrees(node) {
     if(!node.props) return;
@@ -123,17 +123,17 @@ class CommentLayout extends PureComponent {
   }
 
   setSelected(id = "root") {
+    let selectedNode = this.commentableNodes[this.state.selected];
+    if(selectedNode) {
+      selectedNode.setFocused(false);
+    }
     this.setState({selected: id});
   }
 
   render() {
-    const content =
-      <Box onClick={this.setSelected}>
-        {this.makeContent()}
-      </Box>
     const comments = <CommentBlock data={this.state.commentData} selected={this.getSelectedSubtree()}/>;
     return(
-      <SplitLayout left={content} right={comments} rightWidth="0.4" />
+      <SplitLayout left={this.content} right={comments} rightWidth="0.4" />
     );
   }
 

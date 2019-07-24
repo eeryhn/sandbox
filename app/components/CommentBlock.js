@@ -8,6 +8,7 @@
 import { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
 
 class CommentBlock extends Component {
 
@@ -96,14 +97,14 @@ class CommentBlock extends Component {
   }
 
   // simple recursive method to render comment threads
-  makeThreads(key, isVisible = true) {
+  makeThreads(key) {
     const comment = this.state.data[key];
     if(comment) {
       const children = comment.children.map((id) =>
         this.makeThreads(id)
       );
       return(
-        <Comment key={key} data={comment.data} children={children} isVisible={isVisible}/>
+        <Comment key={key} cid={key} data={comment.data} children={children}/>
       );
     } else {
       console.warn("Could not find comment with ID: " + key);
@@ -114,11 +115,12 @@ class CommentBlock extends Component {
   render() {
     const threads = this.state.data[0].children.map((id) => {
       const data = this.state.data[id].data;
-      return this.makeThreads(id, (this.props.selected ? this.props.selected.includes(data.block) : true));
-    })
-
+      if(!this.props.selected || this.props.selected.includes(data.block))
+        return this.makeThreads(id);
+    });
     return(
       <Box>
+        <CommentForm/>
         {threads}
       </Box>
     );

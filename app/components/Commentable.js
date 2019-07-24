@@ -1,57 +1,73 @@
 /* REVIEW: - Using a workaround (onMouseOver, onMouseOut toggles) to handle hover
  *           state in order to prevent bubbling.  Look into alternate solutions.
+ *         - tbh idk where to handle onClicks anymore. ):
  */
 
-import React, { memo, useState, useEffect } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles  } from '@material-ui/styles';
+import { withStyles  } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   container: {
     background: 'rgba(230, 230, 230, 0.2)'
   },
   hover: {
     background: 'rgba(170, 203, 255, 0.1)'
   },
-  selected: {
+  focused: {
     background: 'rgba(170, 203, 255, 0.3)'
   }
-}));
+})
 
-function Commentable(props) {
-  const [hover, setHover] = useState(false);
-  const [renders, setRenders] = useState(0);
-  const classes = useStyles();
+class Commentable extends PureComponent {
 
-  const {id, selected, setSelected} = props;
+  static propTypes = {
+    id: PropTypes.string.isRequired
+  }
 
-  function handleMouseOver(e) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hover: false,
+      focused: false
+    }
+  }
+
+  setHover(bool) {
+    this.setState({hover: bool});
+  }
+  setFocused(bool) {
+    this.setState({focused: bool});
+  }
+
+  handleMouseOver(e) {
     e.stopPropagation();
-    setHover(true);
+    this.setHover(true);
   }
-  function handleMouseOut() {
-    setHover(false);
+  handleMouseOut() {
+    this.setHover(false);
   }
-
-  function handleClick(e) {
+  handleClick(e) {
     e.stopPropagation();
-    setSelected(id)
+    this.props.setSelected(this.props.id)
+    this.setFocused(true);
   }
 
-  return(
-    <props.component id={id}
-    className={`${classes.container} ${selected ? classes.selected : ""} ${hover ? classes.hover : ""}`}
-    onMouseOver={(e) => handleMouseOver(e)}
-    onMouseOut={() => handleMouseOut()}
-    onClick={(e) => handleClick(e)}>
-      {props.children}
-    </props.component>
-  )
+  render() {
+    const {focused, hover} = this.state;
+    const {id, classes, children} = this.props;
+
+    return(
+      <this.props.component id={id}
+      className={`${classes.container} ${focused ? classes.focused : ""} ${hover ? classes.hover : ""}`}
+      onMouseOver={(e) => this.handleMouseOver(e)}
+      onMouseOut={() => this.handleMouseOut()}
+      onClick={(e) => this.handleClick(e)}>
+        {children}
+      </this.props.component>
+    );
+  }
 }
 
-Commentable.propTypes = {
-  id: PropTypes.string.isRequired
-}
-
-export default React.memo(Commentable);
+export default withStyles(styles)(Commentable);

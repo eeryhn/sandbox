@@ -37,6 +37,19 @@ const theme = createMuiTheme({
       '@global': {
         '@font-face': encode
       }
+    },
+    MuiInputBase: {
+      root: {
+        fontSize: '.875rem'
+      }
+    },
+    MuiOutlinedInput: {
+      root: {
+        fontSize: '.875rem'
+      },
+      multiline: {
+        padding: '.6rem .75rem'
+      }
     }
   }
 });
