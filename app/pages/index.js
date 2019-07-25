@@ -1,10 +1,11 @@
 import CommentLayout from '../components/CommentLayout';
 import Link from 'next/link';
 import Commentable from '../components/Commentable';
+import Typography from '@material-ui/core/Typography';
 
 const content =
   <div id="0" commentable={true}>
-    <h1>Hello World</h1>
+    <Typography variant="h1">Hello World</Typography>
     <div>
       <p id="test" commentable={true}>
         Welcome to my playground?  Kind of messy and dusty and built from scrapmetal, sawdust, and the questionable gluestick I found in my desk a few years ago.
@@ -22,7 +23,7 @@ const content =
       </p>
 
       <div id="1" commentable={true}>
-        <h3 id="2" commentable={true}>And all this sidebar nonsense is...</h3>
+        <Typography id="2" commentable={true} variant="h3">And all this sidebar nonsense is...</Typography>
         <div>
           <p id="4" commentable={true}>
             A few years ago - and it's kind of alarming that it's really been a few years now - I was ripping apart the PHP documentation trying to find
@@ -55,7 +56,7 @@ const content =
       </div>
 
       <div id="double-test" commentable={true}>
-        <h3>Tests and some such somethings</h3>
+        <Typography variant="h3">Tests and some such somethings</Typography>
         Every now and again you'll want to do something like, idk, make a div and
         give it content, and then give it children, and maybe it'll get a little
         confused because one of its children.

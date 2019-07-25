@@ -17,6 +17,7 @@
 import { PureComponent, cloneElement } from 'react';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import NavBar from './NavBar';
 import SplitLayout from './SplitLayout';
 import Commentable from './Commentable';
 import CommentBlock from './CommentBlock';
@@ -76,8 +77,9 @@ class CommentLayout extends PureComponent {
       }
       return(
         <Commentable {...props}
-        setSelected={this.setSelected}
-        ref={ elt => this.commentableNodes[node.props.id] = elt }>
+          onClick={(e)=> this.setSelected(e, node.props.id)}
+          ref={ elt => this.commentableNodes[node.props.id] = elt }
+        >
           {children}
         </Commentable>
       )
@@ -122,18 +124,27 @@ class CommentLayout extends PureComponent {
     return this.state.commentableSubtrees[this.state.selected];
   }
 
-  setSelected(id = "root") {
+  setSelected(e, id = "root") {
+    e.stopPropagation();
+
     let selectedNode = this.commentableNodes[this.state.selected];
     if(selectedNode) {
       selectedNode.setFocused(false);
     }
+
     this.setState({selected: id});
+    this.commentableNodes[id].setFocused(true);
   }
 
   render() {
     const comments = <CommentBlock data={this.state.commentData} selected={this.getSelectedSubtree()}/>;
     return(
-      <SplitLayout left={this.content} right={comments} rightWidth="0.4" />
+      <Box height="100%" position="fixed">
+        <Box height="100%" display="flex" flexDirection="column">
+          <NavBar pageId={this.props.pageId}/>
+          <SplitLayout left={comments} right={this.content}/>
+        </Box>
+      </Box>
     );
   }
 

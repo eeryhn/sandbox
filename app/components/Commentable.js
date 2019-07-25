@@ -10,7 +10,8 @@ import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
   container: {
-    background: 'rgba(230, 230, 230, 0.2)'
+    background: 'rgba(230, 230, 230, 0.2)',
+    padding: '1rem'
   },
   hover: {
     background: 'rgba(170, 203, 255, 0.1)'
@@ -48,22 +49,19 @@ class Commentable extends PureComponent {
   handleMouseOut() {
     this.setHover(false);
   }
-  handleClick(e) {
-    e.stopPropagation();
-    this.props.setSelected(this.props.id)
-    this.setFocused(true);
-  }
 
   render() {
     const {focused, hover} = this.state;
-    const {id, classes, children} = this.props;
+    const {id, classes, children, commentable, setSelected, ...props} = this.props;
 
     return(
-      <this.props.component id={id}
-      className={`${classes.container} ${focused ? classes.focused : ""} ${hover ? classes.hover : ""}`}
-      onMouseOver={(e) => this.handleMouseOver(e)}
-      onMouseOut={() => this.handleMouseOut()}
-      onClick={(e) => this.handleClick(e)}>
+      <this.props.component
+        {...props}
+        id={id}
+        className={`${classes.container} ${focused ? classes.focused : ""} ${hover ? classes.hover : ""}`}
+        onMouseOver={(e) => this.handleMouseOver(e)}
+        onMouseOut={() => this.handleMouseOut()}
+      >
         {children}
       </this.props.component>
     );

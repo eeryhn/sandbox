@@ -32,6 +32,11 @@ const theme = createMuiTheme({
       'sans-serif',
     ].join(','),
   },
+  props: {
+    MuiButtonBase: {
+      disableRipple: true
+    }
+  },
   overrides: {
     MuiCssBaseline: {
       '@global': {

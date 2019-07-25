@@ -28,11 +28,13 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   if(req.isAuthenticated()) {
-    const { userId, pageId, blockId, parentId, content } = req.body;
-    knex('comments').insert({ user_id: userId,
-                              page_id: pageId,
-                              block_id: blockId,
-                              parent_id: parentId,
+
+    const { user_id } = req.user;
+    const { pageId: page_id, blockId: block_id, parentId: parent_id, content } = req.body;
+    knex('comments').insert({ user_id: user_id,
+                              page_id: page_id,
+                              block_id: block_id,
+                              parent_id: parent_id,
                               content: content
                             })
       .then( () => {

@@ -23,9 +23,9 @@ function Comment(props) {
         <Box ml={1.5} my={1}>
           <Box display="flex" justifyContent="flex-end">
             <Button size="small"
-            disableRipple={true} disableFocusRipple={true}
-            variant={`${replying ? "outlined" : 'text'}`}
-            onClick={(e) => console.log(e)}>
+              variant={`${replying ? "outlined" : 'text'}`}
+              onClick={() => toggleReply(!replying)}
+            >
               Reply
             </Button>
           </Box>

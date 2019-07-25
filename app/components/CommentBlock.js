@@ -6,9 +6,16 @@
  */
 
 import { Component } from 'react';
+import { withStyles } from '@material-ui/styles'
 import Box from '@material-ui/core/Box';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
+
+const styles = theme => ({
+  container: {
+    padding: '1rem'
+  }
+});
 
 class CommentBlock extends Component {
 
@@ -119,7 +126,7 @@ class CommentBlock extends Component {
         return this.makeThreads(id);
     });
     return(
-      <Box>
+      <Box className={this.props.classes.container}>
         <CommentForm/>
         {threads}
       </Box>
@@ -128,4 +135,4 @@ class CommentBlock extends Component {
 
 }
 
-export default CommentBlock;
+export default withStyles(styles)(CommentBlock);
