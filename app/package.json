@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "play": "PORT=4000 node app.js",
+    "play": "PORT=3001 node app.js",
     "build": "next build",
-    "start": "NODE_ENV=production node app.js"
+    "start": "NODE_ENV=production npm run build node app.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "knex": "^0.17.3",
+    "memoize-one": "^5.0.5",
     "mysql": "^2.17.1",
     "next": "^8.1.0",
     "next-fonts": "^0.17.0",

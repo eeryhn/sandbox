@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
+import { lightBlue, amber } from '@material-ui/core/colors';
 import EncodeSE from './fonts/EncodeSansSemiExpanded-Regular.ttf';
 import EncodeBold from './fonts/EncodeSansSemiExpanded-Medium.ttf';
 
@@ -25,6 +25,16 @@ const encode = [
 
 // Create a theme instance.
 const theme = createMuiTheme({
+  palette: {
+    success: {
+      main: lightBlue[500],
+      contrastTest: '#000'
+    },
+    error: {
+      main: amber[800],
+      contrastText: '#fff'
+    }
+  },
   typography: {
     fontFamily: [
       'EncodeSE',

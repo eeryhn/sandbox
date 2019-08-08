@@ -5,7 +5,7 @@ const session = require('express-session');
 const uid = require('uid-safe');
 const passport = require('./auth');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 const dev = process.env.NODE_ENV !== 'production';
 
 const app = express();
@@ -34,7 +34,6 @@ app.use('/', userRoutes);
 app.use('/comment', commentRoutes);
 
 app.get("/ping", (req, res) => {
-  // random endpoint so that the client can call something
   res.json({ "msg": "pong" })
 });
 

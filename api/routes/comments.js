@@ -4,14 +4,18 @@ const passport = require('passport');
 const knex = require('../db/knex.js');
 
 router.get('/', (req, res) => {
-  let {pageId: page_id, sort, sortDir: dir} = req.query;
+  let {page_id, sort, dir} = req.query;
   if(!sort) sort = 'comment_id';
   if(!dir) dir = 'asc'
   knex.select('*').from('comments')
     .where({page_id: req.query.page_id})
     .orderBy(sort, dir)
     .then((comments) => {
-      let processedComments = {};
+      let processedComments = {
+        0: {
+          children: []
+        }
+      };
       comments.forEach(function(comment) {
         const {comment_id: id, page_id, parent_id, ...data} = comment;
         processedComments[id] = {data: data, children: []};
@@ -20,6 +24,8 @@ router.get('/', (req, res) => {
         const {comment_id: id, parent_id} = comment;
         if(parent_id) {
           processedComments[parent_id].children.push(id);
+        } else {
+          processedComments[0].children.push(id);
         }
       })
       res.json(processedComments);

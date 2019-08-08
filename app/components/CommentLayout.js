@@ -2,7 +2,7 @@
  *
  *  Expected props:
  *   - a name (technically a pageId.  Looks for comment data based on this, yes.)
- *   - content, probably. idk yet.  Technically it works on a blank page...
+ *   - content, probably. idk yet.  Technically it should work on a blank page...
  *
  * REVIEW:  Component vs PureComponent; probably a bad idea to spam pures before
  *          you figure things out.
@@ -11,13 +11,14 @@
  *       meaningful way post-mount (i.e. commentable components don't move around,
  *       no new commentable components spawn).  Can easily be modified to account
  *       for change, but leaving as is for now because I can't imagine a scenario
- *       that doesn't seem like a UX nightmare + dun wanna update.
+ *       that doesn't seem like a UX nightmare + don't want to keep rebuilding page.
+ *       Also haven't really tested this with an...interactive page.
  */
 
 import { PureComponent, cloneElement } from 'react';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-import NavBar from './NavBar';
+import FixedNav from './FixedNav';
 import SplitLayout from './SplitLayout';
 import Commentable from './Commentable';
 import CommentBlock from './CommentBlock';
@@ -33,7 +34,6 @@ class CommentLayout extends PureComponent {
     super(props);
     this.state = {
       selected: props.selected,
-      commentData: {},
       commentableSubtrees: {}
     }
     this.setSelected = this.setSelected.bind(this);
@@ -41,16 +41,8 @@ class CommentLayout extends PureComponent {
 
   componentDidMount() {
     this.commentableNodes = {};
-    this.content =
-      <Box onClick={this.setSelected}>
-        {this.makeContent()}
-      </Box>;
-
+    this.content = <Box onClick={this.setSelected}> {this.makeContent()} </Box>;
     this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content)});
-  }
-
-  getInitialProps() {
-
   }
 
   /**
@@ -137,14 +129,11 @@ class CommentLayout extends PureComponent {
   }
 
   render() {
-    const comments = <CommentBlock data={this.state.commentData} selected={this.getSelectedSubtree()}/>;
+    const comments = <CommentBlock pageId={this.props.pageId} selected={this.getSelectedSubtree()}/>;
     return(
-      <Box height="100%" position="fixed">
-        <Box height="100%" display="flex" flexDirection="column">
-          <NavBar pageId={this.props.pageId}/>
-          <SplitLayout left={comments} right={this.content}/>
-        </Box>
-      </Box>
+      <FixedNav pageId={this.props.pageId}>
+        <SplitLayout left={comments} right={this.content}/>
+      </FixedNav>
     );
   }
 

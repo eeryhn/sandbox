@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,7 +8,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
 import LoginRegisterPanel from './LoginRegisterPanel';
+import NavMenu from './NavMenu';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,56 +34,78 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '100%',
     width: '500px',
     margin: '1rem'
+  },
+  drawer: {
+    minWidth: '300px'
   }
 }));
 
-export default function NavBar(props) {
-  const [open, toggleOpen] = useState(false);
-  const [panel, setPanel] = useState('login');
+function NavBar(props) {
+  const [dialogOpen, toggleDialog] = useState(false);
+  const [dialogPanel, setDialogPanel] = useState('login');
+  const [menuOpen, toggleMenu] = useState(false);
   const classes = useStyles();
 
   function openLogin() {
-    setPanel('login');
-    toggleOpen(true);
+    setDialogPanel('login');
+    toggleDialog(true);
   }
 
   function openRegister() {
-    setPanel('register');
-    toggleOpen(true);
-  }
-
-  function handleClose() {
-    toggleOpen(false);
+    setDialogPanel('register');
+    toggleDialog(true);
   }
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            {props.pageId}
-          </Typography>
-          <Button
-          color="inherit"
-          className={classes.linkBtn}
-          onClick={openLogin}>Login</Button>
-          |
-          <Button
-          color="inherit"
-          className={classes.linkBtn}
-          onClick={openRegister}>Register</Button>
-        </Toolbar>
-      </AppBar>
-      <Dialog
-      aria-labelledby="login-or-register-modal"
-      open={open}
-      onClose={handleClose}
-      PaperProps={{square: true}}
-      maxWidth = {false}
-      classes={{paper: classes.dialog}}
+    <React.Fragment>
+      <div className={classes.root}>
+        <AppBar position="relative">
+          <Toolbar>
+            <IconButton
+              onClick={() => toggleMenu(true)}
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              {props.pageId}
+            </Typography>
+            <Button color="inherit" className={classes.linkBtn} onClick={openLogin}>
+              Login
+            </Button>
+            |
+            <Button color="inherit" className={classes.linkBtn} onClick={openRegister}>
+              Register
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
+      <Drawer
+        classes={{paper: classes.drawer}}
+        open={menuOpen}
+        onClose={() => toggleMenu(false)}
       >
-        <LoginRegisterPanel panel={panel} />
+        <NavMenu/>
+      </Drawer>
+      <Dialog
+        aria-labelledby="login-or-register-modal"
+        open={dialogOpen}
+        onClose={() => toggleDialog(false)}
+        PaperProps={{square: true}}
+        maxWidth = {false}
+        classes={{paper: classes.dialog}}
+      >
+        <LoginRegisterPanel panel={dialogPanel} />
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }
+
+NavBar.propTypes = {
+  pageId: PropTypes.string.isRequired
+}
+
+export default NavBar;

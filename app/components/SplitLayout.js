@@ -39,28 +39,4 @@ function SplitLayout(props) {
   );
 }
 
-// class SplitLayout extends Component {
-//
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       rightWidth: props.rightWidth
-//     };
-//   }
-//
-//   render() {
-//     return(
-//       <Box display="flex" p={1}>
-//         <Box flexGrow={1}>
-//           {this.props.left}
-//         </Box>
-//         <Box width={(this.state.rightWidth * 100) + "%"} flexShrink="0">
-//           {this.props.right}
-//         </Box>
-//       </Box>
-//     );
-//   }
-//
-// }
-
 export default SplitLayout;

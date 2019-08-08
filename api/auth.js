@@ -13,8 +13,8 @@ passport.use(new LocalStrategy({
                if (user) {
                  bcrypt.compare(password, user.password)
                   .then(function(res) {
+                    delete user.password;
                     if(res) {
-                      delete user.password;
                       return done(null, user, {message: 'Logged In Successfully'});
                     } else {
                       return done(null, false, {message: 'Incorrect email or password.'});
@@ -33,13 +33,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  knex.select('*').from('users').where('user_id', id)
+  knex.select('user_id', 'name', 'email').from('users').where('user_id', id)
     .then(user => {
-      if(user) {
-        delete user.password;
-        done(null, user);
+      if(user[0]) {
+        done(null, user[0]);
       } else {
-        done('Could not find user', user);
+        done('Could not find user', null);
       }
     })
     .catch(err => done(err))

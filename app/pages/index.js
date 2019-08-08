@@ -2,6 +2,7 @@ import CommentLayout from '../components/CommentLayout';
 import Link from 'next/link';
 import Commentable from '../components/Commentable';
 import Typography from '@material-ui/core/Typography';
+import CommentForm from '../components/CommentForm';
 
 const content =
   <div id="0" commentable={true}>
@@ -41,16 +42,20 @@ const content =
             But that's not entirely fair to the creators, or anybody else, really.
           </p>
           <p>
-            Anyway, I thought the notes in the margins might always have their place in the margins.  I wouldn't expect them to be
-            always useful, but they can and do tell stories, and that should be reason enough to keep them around.
+            Anyway, I thought the notes in the margins might always have their place in the margins.  I wouldn't expect them to
+            always be useful, but they can and do tell stories, and that should be reason enough to keep them around.
           </p>
           <p>
-            So this is that.  Well, an attempt, at any rate.  Because  I thought it might
-            be fun to see traces of thoughts on what we're reading, as we're reading.  Our windows (or my windows) stay large enough these days to entertain the idea.
-            As for mobile...maybe we're getting there.  In the meantime, I wouldn't expect any of this to work on a phone for...ever.
+            So this is that.  Well, another, slightly different (in not so meaningful ways) rendition, anyway.
+            An experiment and a rather top-heavy toy because I thought it might
+            be fun to see traces of thoughts on what we're reading, as we're reading.
+            Our windows (or my windows) stay large enough these days to entertain the idea.
+            As for mobile...maybe we're getting there.
+            In the meantime, I wouldn't expect any of this to work on a phone for...ever.
           </p>
           <p id="7" commentable={true}>
-            So that's it.  Welcome to prototype 0.01 (not that anybody asked, but 0.00 was a bigger flop) and my box of gimmicks.
+            So that's it.  Welcome to prototype 0.01 (not that anybody asked, but 0.00 was a bigger flop) and my
+            (currently empty) box of gimmicks.
           </p>
         </div>
       </div>

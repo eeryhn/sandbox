@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
@@ -41,7 +40,7 @@ class LoginRegisterPanel extends PureComponent {
 
     render() {
       return(
-        <Box>
+        <React.Fragment>
           <Tabs
             value={this.state.panel}
             onChange={this.switchPanel}
@@ -74,22 +73,22 @@ class LoginRegisterPanel extends PureComponent {
                   fullWidth={true}
                   margin="normal"
                 />
-                <Box>
+                <div>
                   <Button variant="contained" color="primary" onClick={this.submitLogin}>
                     Login
                   </Button>
-                </Box>
+                </div>
               </form>
             }
             {this.state.panel == 'register' &&
-              <Box>
+              <div>
                 <Typography align="center" variant="h3">
                   Someday...?
                 </Typography>
-              </Box>
+              </div>
             }
           </Box>
-        </Box>
+        </React.Fragment>
       );
     }
 }
