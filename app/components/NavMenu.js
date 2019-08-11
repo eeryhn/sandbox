@@ -30,7 +30,7 @@ export default function NavMenu() {
   const path = router.route;
   const pages = {
     'In Progress': {
-      'Cyclic Numbers': '/sandbox/cyclic-numbers'
+      'Cyclic Numbers': '/cyclic-numbers'
     }
   }
 
@@ -91,7 +91,7 @@ export default function NavMenu() {
   return(
     <div>
       <List>
-        <Link href="/sandbox/">
+        <Link href="/">
           <ListItem button className={classes.root}>
             <ListItemText>
               Home

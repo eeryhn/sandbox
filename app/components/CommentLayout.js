@@ -129,7 +129,12 @@ class CommentLayout extends PureComponent {
   }
 
   render() {
-    const comments = <CommentBlock pageId={this.props.pageId} selected={this.getSelectedSubtree()}/>;
+    const comments =
+      <CommentBlock
+        pageId={this.props.pageId}
+        selectedId={this.state.selected}
+        selectedTree={this.getSelectedSubtree()}
+      />;
     return(
       <FixedNav pageId={this.props.pageId}>
         <SplitLayout left={comments} right={this.content}/>

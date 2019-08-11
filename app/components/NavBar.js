@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import LoginRegisterPanel from './LoginRegisterPanel';
 import NavMenu from './NavMenu';
+import { UserContext } from './UserContext';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,6 +58,46 @@ function NavBar(props) {
     toggleDialog(true);
   }
 
+  function logout() {
+    axios.post('/auth/logout')
+    .then( res => {
+      window.location.reload();
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  function AccountButtons() {
+    return(
+      <UserContext.Consumer>
+        { user => {
+          if(user)
+            return(
+              <React.Fragment>
+                {user.name}
+                <Button color="inherit" onClick={logout}>
+                  Logout
+                </Button>
+              </React.Fragment>
+            );
+          else
+            return(
+              <React.Fragment>
+                <Button color="inherit" className={classes.linkBtn} onClick={openLogin}>
+                  Login
+                </Button>
+                |
+                <Button color="inherit" className={classes.linkBtn} onClick={openRegister}>
+                  Register
+                </Button>
+              </React.Fragment>
+            );
+        }}
+      </UserContext.Consumer>
+    );
+  }
+
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -73,13 +115,7 @@ function NavBar(props) {
             <Typography variant="h6" className={classes.title}>
               {props.pageId}
             </Typography>
-            <Button color="inherit" className={classes.linkBtn} onClick={openLogin}>
-              Login
-            </Button>
-            |
-            <Button color="inherit" className={classes.linkBtn} onClick={openRegister}>
-              Register
-            </Button>
+            <AccountButtons/>
           </Toolbar>
         </AppBar>
       </div>

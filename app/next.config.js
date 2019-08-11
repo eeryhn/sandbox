@@ -1,4 +1,2 @@
 const withFonts = require('next-fonts');
-module.exports = withFonts({
-  assetPrefix: '/sandbox'
-});
+module.exports = withFonts();

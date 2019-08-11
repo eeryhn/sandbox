@@ -33,28 +33,29 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  if(req.isAuthenticated()) {
-
-    const { user_id } = req.user;
-    const { pageId: page_id, blockId: block_id, parentId: parent_id, content } = req.body;
-    knex('comments').insert({ user_id: user_id,
-                              page_id: page_id,
-                              block_id: block_id,
-                              parent_id: parent_id,
-                              content: content
-                            })
-      .then( () => {
-        res.sendStatus(200);
-      })
-      .catch( function(err) {
-        console.log('POST COMMENT ERROR: ', err)
-        res.json({
-          message: "Oops. ):"
+  passport.authenticate('jwt', {session: false}, function(err, user, info) {
+    if(user) {
+      const { user_id } = user;
+      const { pageId: page_id, blockId: block_id, parentId: parent_id, comment } = req.body;
+      knex('comments').insert({ user_id: user_id,
+                                page_id: page_id,
+                                block_id: block_id,
+                                parent_id: parent_id,
+                                content: comment
+                              })
+        .then( () => {
+          res.sendStatus(200);
+        })
+        .catch( function(err) {
+          console.log('POST COMMENT ERROR: ', err)
+          res.json({
+            message: "Oops. ):"
+          });
         });
-      });
-  } else {
-    res.sendStatus(401);
-  }
+    } else {
+      res.sendStatus(401);
+    }
+  })(req, res);
 });
 
 module.exports = router;

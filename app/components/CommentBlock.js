@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles'
 import Box from '@material-ui/core/Box';
 import Comment from './Comment';
@@ -20,6 +21,8 @@ class CommentBlock extends PureComponent {
       dir: 'asc',
       data: []
     };
+
+    this.getCommentData = this.getCommentData.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +49,12 @@ class CommentBlock extends PureComponent {
         this.makeThreads(id)
       );
       return(
-        <Comment key={key} cid={key} data={comment.data} children={children}/>
+        <Comment
+          key={key}
+          cid={key}
+          data={{...comment.data, pageId:this.props.pageId}}
+          children={children}
+          updateComments={this.getCommentData}/>
       );
     } else {
       console.warn("Could not find comment with ID: " + key);
@@ -59,18 +67,28 @@ class CommentBlock extends PureComponent {
     if(this.state.data[0]) {
       threads = this.state.data[0].children.map((id) => {
         const commentData = this.state.data[id].data;
-        if(!this.props.selected || this.props.selected.includes(commentData.block_id))
+        if(!this.props.selectedTree || this.props.selectedTree.includes(commentData.block_id))
           return this.makeThreads(id);
       });
     }
     return(
       <Box className={this.props.classes.container}>
-        <CommentForm/>
+        { this.props.selectedId &&
+          <CommentForm
+              pageId={this.props.pageId}
+              blockId={this.props.selectedId}
+              updateComments={this.getCommentData}
+          />
+        }
         {threads}
       </Box>
     );
   }
 
 }
+
+CommentBlock.propTypes = {
+  pageId: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(CommentBlock);

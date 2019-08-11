@@ -1,5 +1,10 @@
 const express = require('express');
 const next = require('next');
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
+const uid = require('uid-safe');
+const authRoutes = require('./routes/auth');
+const commentRoutes = require('./routes/comment');
 
 const port = process.env.PORT || 3001;
 const dev = process.env.NODE_ENV !== 'production';
@@ -10,6 +15,35 @@ app
   .prepare()
   .then(() => {
     const server = express();
+
+    const sessionConfig = {
+        secret: uid.sync(18),
+        cookie: {
+          maxAge: 86400 * 1000, // 24 hours in milliseconds
+          secure: !dev
+        },
+        store: new MemoryStore({
+          checkPeriod: 86400 * 1000
+        }),
+        resave: false,
+        saveUninitialized: false
+      };
+    server.use(session(sessionConfig));
+
+    server.use(express.json());
+    server.use(express.urlencoded({ extended: true }));
+
+    server.use('/auth', authRoutes);
+    server.use('/comment', commentRoutes);
+
+    const restrictAccess = (req, res, next) => {
+      console.log(req);
+      if(!req.session.jwt) return res.redirect('/');
+      next();
+    }
+
+    server.use('/comment', restrictAccess);
+    server.use('/cyclic-numbers', restrictAccess);
 
     server.get('*', (req, res) => {
       return handle(req, res);

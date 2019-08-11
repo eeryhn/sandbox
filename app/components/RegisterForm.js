@@ -3,7 +3,7 @@ import VTextField from './VTextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
   const [fields, setFields] = useState({
     name: {
       value: ''
@@ -41,7 +41,7 @@ export default function RegisterForm() {
   }
 
   function submitRegister() {
-    axios.put('/api/signup', {
+    axios.put('/auth/register', {
       data: {
         name: fields.name.value,
         email: fields.email.value,

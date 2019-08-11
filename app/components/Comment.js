@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import CommentForm from './CommentForm';
 import Button from '@material-ui/core/Button';
+import { UserContext } from './UserContext';
 
 function Comment(props) {
   const [active, setActive] = useState(false);
   const [replying, toggleReply] = useState(false);
-  const { name, content, block, children } = props.data;
+  const { pageId, name, content, block_id, children } = props.data;
 
   return(
     <Box>
@@ -20,19 +21,30 @@ function Comment(props) {
             {content}
           </Box>
         </Box>
-        <Box ml={1.5} my={1}>
-          <Box display="flex" justifyContent="flex-end">
-            <Button size="small"
-              variant={`${replying ? "outlined" : 'text'}`}
-              onClick={() => toggleReply(!replying)}
-            >
-              Reply
-            </Button>
-          </Box>
-          { replying &&
-            <CommentForm blockId={block} parentId ={props.cid} />
-          }
-        </Box>
+        <UserContext.Consumer>
+          { user => {
+            if(user) return(
+              <Box ml={1.5} my={1}>
+                <Box display="flex" justifyContent="flex-end">
+                  <Button size="small"
+                    variant={`${replying ? "outlined" : 'text'}`}
+                    onClick={() => toggleReply(!replying)}
+                  >
+                    Reply
+                  </Button>
+                </Box>
+                { replying &&
+                  <CommentForm
+                    pageId={pageId}
+                    blockId={block_id}
+                    parentId ={props.cid}
+                    updateComments={props.updateComments}/>
+                }
+              </Box>
+            )
+            else return;
+          }}
+        </UserContext.Consumer>
       </Box>
       <Box ml={1.5} my={1}>
         {props.children}

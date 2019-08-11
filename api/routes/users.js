@@ -1,27 +1,28 @@
 const express = require('express');
 const router  = express.Router();
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 const knex = require('../db/knex.js');
 const bcrypt = require('bcrypt');
 
-router.put('/signup', (req, res) => {
+router.put('/register', (req, res) => {
   const { name, email, password } = req.body.data;
   bcrypt.hash(password, parseInt(process.env.SALT))
     .then(function(hash) {
       knex('users').insert({name: name, email: email, password: hash})
         .then(function() {
-          knex.select('user_id').from('users').where('email', email)
-            .then(function(user) {
-              req.login(user[0], function(err) {
+          knex.select('user_id', 'name').from('users').where('email', email)
+            .then(function(users) {
+              const user = JSON.parse(JSON.stringify(users[0])); // ......TODO: kill...something.
+              req.login(user, {session: false}, (err) => {
                 if(err) {
                   console.log(err);
                   return res.json({
                     message: 'Failed to auto-login what ):'
                   })
                 }
-                return res.json({
-                  message: 'Welcome home :)'
-                })
+                const token = jwt.sign(user, process.env.JWT_KEY);
+                return res.json({user, token});
               });
             });
         })
@@ -37,26 +38,26 @@ router.put('/signup', (req, res) => {
     });
 });
 
-router.get("/login",
+router.post('/login',
   function(req, res, next) {
-    passport.authenticate('local', function(err, user,info) {
-      if(err) {
-        return res.json({
-          message: 'Oops, something went wrong.'
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+      console.log(info);
+      if (err || !user) {
+        return res.status(400).json({
+          message: 'Incorrect email or password',
+          user   : user
         });
-        console.log('LOGIN ERROR:', err);
       }
-      if(!user) {
-        return res.json({...info});
-      }
-      req.login(user, function(err) {
-        if(err) { return next(err); }
-      })
+      req.login(user, {session: false}, (err) => {
+        if (err) {
+          console.log(err);
+          res.send(err);
+        }
+        // generate a signed son web token with the contents of user object and return it in the response
+        const token = jwt.sign(user, process.env.JWT_KEY);
+        return res.json({user, token});
+      });
     })(req, res, next);
   });
-
-router.get('/logout', (req, res) => {
-  req.logout();
-});
 
 module.exports = router;

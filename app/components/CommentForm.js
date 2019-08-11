@@ -1,43 +1,70 @@
-import { Component } from 'react';
-import Box from '@material-ui/core/Box';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Button from '@material-ui/core/Button';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Box, Typography, OutlinedInput, Button} from '@material-ui/core';
+import { UserContext } from './UserContext';
+import axios from 'axios';
 
-class CommentForm extends Component {
-  constructor(props) {
-    super(props);
+function CommentForm(props) {
+  const [comment, setComment] = useState('');
+  const [message, setMessage] = useState({});
 
-    this.state = {
-      comment: ''
-    }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.submitForm = this.submitForm.bind(this);
+  function handleChange(e) {
+    setComment(e.target.value);
   }
 
-  handleChange(e) {
-    this.setState({comment: e.target.value});
+  function submitComment() {
+    axios.post('/comment/', {
+      comment: comment,
+      pageId: props.pageId,
+      blockId: props.blockId,
+      parentId: props.parentId
+    })
+    .then( res => {
+      setComment('');
+      setMessage({
+        text: 'Success!',
+        type: 'primary'
+      })
+      if(props.updateComments) props.updateComments();
+    })
+    .catch( err => {
+      console.log(err);
+      setMessage({
+        text: 'Oops!  Something went wrong.  Try again later?',
+        type: 'error'
+      });
+    });
   }
 
-  submitForm() {
+  return(
+    <UserContext.Consumer>
+      { user => {
+        if(user) return(
+          <form>
+            <OutlinedInput value={comment} onChange={handleChange}
+              fullWidth={true} margin="dense"
+              multiline={true} rows={3} rowsMax={9}
+            />
+            <Box>
+              <Button variant="outlined" color="primary" onClick={submitComment}>
+                Post
+              </Button>
+            </Box>
+            { message.text &&
+              <Typography color={message.type} variant="body2" >
+                {message.text}
+              </Typography>
+            }
+          </form>
+        );
+        else return;
+      }}
+    </UserContext.Consumer>
+  )
+};
 
-  }
-
-  render() {
-    return(
-      <form>
-        <OutlinedInput value={this.state.comment} onChange={this.handleChange}
-          fullWidth={true} margin="dense"
-          multiline={true} rows={3} rowsMax={9}
-        />
-        <Box>
-          <Button variant="outlined" color="primary" onClick={this.submitForm}>
-            Post
-          </Button>
-        </Box>
-      </form>
-    );
-  }
-}
+CommentForm.propTypes = {
+  blockId: PropTypes.string.isRequired
+};
 
 export default CommentForm;
