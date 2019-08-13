@@ -65,10 +65,12 @@ class CommentLayout extends PureComponent {
       const props = {
         key: key,
         component: node.type,
+        selected: node.props.id === this.props.selected,
         ...node.props
       }
       return(
-        <Commentable {...props}
+        <Commentable
+          {...props}
           onClick={(e)=> this.setSelected(e, node.props.id)}
           ref={ elt => this.commentableNodes[node.props.id] = elt }
         >
@@ -117,7 +119,7 @@ class CommentLayout extends PureComponent {
   }
 
   setSelected(e, id = "root") {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
 
     let selectedNode = this.commentableNodes[this.state.selected];
     if(selectedNode) {

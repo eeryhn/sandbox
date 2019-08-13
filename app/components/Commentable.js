@@ -31,7 +31,7 @@ class Commentable extends PureComponent {
     super(props);
     this.state = {
       hover: false,
-      focused: false
+      focused: props.selected
     }
   }
 
@@ -52,7 +52,7 @@ class Commentable extends PureComponent {
 
   render() {
     const {focused, hover} = this.state;
-    const {id, classes, children, commentable, setSelected, ...props} = this.props;
+    const {id, classes, children, commentable, selected, setSelected, ...props} = this.props;
 
     return(
       <this.props.component

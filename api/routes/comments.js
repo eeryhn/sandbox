@@ -5,9 +5,10 @@ const knex = require('../db/knex.js');
 
 router.get('/', (req, res) => {
   let {page_id, sort, dir} = req.query;
-  if(!sort) sort = 'comment_id';
-  if(!dir) dir = 'asc'
-  knex.select('*').from('comments')
+  if(!sort) sort = 'created_at';
+  if(!dir) dir = 'desc';
+  knex.select('comments.*', 'users.name').from('comments')
+    .innerJoin('users', 'comments.user_id', 'users.user_id')
     .where({page_id: req.query.page_id})
     .orderBy(sort, dir)
     .then((comments) => {

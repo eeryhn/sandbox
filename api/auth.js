@@ -35,7 +35,7 @@ passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_KEY,
     jsonWebTokenOptions: {
-      maxAge: '1d'
+      maxAge: '3d'
     }
   },
   function(jwtPayload, done) {

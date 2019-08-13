@@ -67,6 +67,6 @@ const content =
 
 export default function Index() {
   return (
-    <CommentLayout content={content} pageId="intro"/>
+    <CommentLayout content={content} pageId="intro" selected="0"/>
   );
 }

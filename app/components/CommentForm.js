@@ -29,10 +29,14 @@ function CommentForm(props) {
     })
     .catch( err => {
       console.log(err);
-      setMessage({
-        text: 'Oops!  Something went wrong.  Try again later?',
-        type: 'error'
-      });
+      if(err.response.status === 401) {
+        window.location.reload();
+      } else {
+        setMessage({
+          text: 'Oops!  Something went wrong.  Try again later?',
+          type: 'error'
+        });
+      }
     });
   }
 

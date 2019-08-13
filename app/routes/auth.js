@@ -11,7 +11,8 @@ router.put('/register', (req, res) => {
       return(res.json(response.data.user));
     })
     .catch( err => {
-      console.log(err)
+      console.log(err.response.data);
+      res.status(err.response.status).send(err.response.data);
     });
 });
 

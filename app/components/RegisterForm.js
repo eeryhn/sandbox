@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import VTextField from './VTextField';
-import Button from '@material-ui/core/Button';
+import { Button, Typography } from '@material-ui/core';
 import axios from 'axios';
 
 export default function RegisterForm(props) {
@@ -18,6 +18,7 @@ export default function RegisterForm(props) {
       value: ''
     }
   });
+  const [errorText, setError] = useState('');
 
   const NAME_PATT = /^([\S]{3,32})$/g;
   const EMAIL_PATT = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
@@ -45,10 +46,19 @@ export default function RegisterForm(props) {
       data: {
         name: fields.name.value,
         email: fields.email.value,
-        password: fields.pw.value
+        password: fields.pw.value,
+        reg_code: props.registrationCode
       }
-    }).then( res => {
-      console.log(res);
+    })
+    .then( res => {
+      if(props.onComplete) props.onComplete();
+    })
+    .catch( err => {
+      if(err.response.data) {
+        setError(err.response.data);
+      } else {
+        setError('Something went wrong. ):')
+      }
     })
   }
 
@@ -120,6 +130,11 @@ export default function RegisterForm(props) {
         <Button variant="contained" disabled={!allValid()} color="primary" onClick={submitRegister}>
           Register
         </Button>
+        { errorText &&
+          <Typography color="error" variant="body2">
+            {errorText}
+          </Typography>
+        }
       </div>
     </form>
   )

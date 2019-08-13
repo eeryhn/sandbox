@@ -18,7 +18,7 @@ class CommentBlock extends PureComponent {
     super(props);
     this.state = {
       sort: 'comment_id',
-      dir: 'asc',
+      dir: 'desc',
       data: []
     };
 

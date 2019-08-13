@@ -2,6 +2,7 @@ const express = require('express');
 const next = require('next');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
+const axios = require('axios');
 const uid = require('uid-safe');
 const authRoutes = require('./routes/auth');
 const commentRoutes = require('./routes/comment');
@@ -19,11 +20,11 @@ app
     const sessionConfig = {
         secret: uid.sync(18),
         cookie: {
-          maxAge: 86400 * 1000, // 24 hours in milliseconds
+          maxAge: 3 * 86400 * 1000,
           secure: !dev
         },
         store: new MemoryStore({
-          checkPeriod: 86400 * 1000
+          checkPeriod: 3 * 86400 * 1000
         }),
         resave: false,
         saveUninitialized: false
@@ -37,10 +38,14 @@ app
     server.use('/comment', commentRoutes);
 
     const restrictAccess = (req, res, next) => {
-      console.log(req);
       if(!req.session.jwt) return res.redirect('/');
       next();
     }
+
+    server.use('/signup', (req, res, next) => {
+      if(!req.query || !req.query.code) return res.redirect('/');
+      next();
+    })
 
     server.use('/comment', restrictAccess);
     server.use('/cyclic-numbers', restrictAccess);

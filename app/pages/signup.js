@@ -5,19 +5,23 @@ import ScrollNav from '../components/ScrollNav';
 import RegisterForm from '../components/RegisterForm';
 
 const useStyles = makeStyles( theme => ({
-  form: {
+  container: {
     minWidth: '500px',
     width: '50%',
     margin: '0 auto'
   }
 }));
 
-export default function Signup() {
+const Signup = ({query}) => {
   const classes = useStyles();
+
+  function returnHome() {
+    window.location.href='/';
+  }
 
   return(
     <ScrollNav pageId="signup">
-      <Box className={classes.form}>
+      <Box className={classes.container}>
         <Typography variant="h6">
           A warning:
         </Typography>
@@ -35,8 +39,14 @@ export default function Signup() {
           So, seriously: Don't reuse passwords.  Or am I the only one still
           doing that.
         </p>
-        <RegisterForm/>
+        <RegisterForm onComplete={returnHome} registrationCode={query.code} />
       </Box>
     </ScrollNav>
   )
 }
+
+Signup.getInitialProps = ({query}) => {
+  return {query}
+}
+
+export default Signup;
