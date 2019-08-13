@@ -52,6 +52,7 @@ class CommentBlock extends PureComponent {
         <Comment
           key={key}
           cid={key}
+          hidden={this.props.selectedTree && !this.props.selectedTree.includes(comment.data.block_id)}
           data={{...comment.data, pageId:this.props.pageId}}
           children={children}
           updateComments={this.getCommentData}/>
@@ -67,8 +68,7 @@ class CommentBlock extends PureComponent {
     if(this.state.data[0]) {
       threads = this.state.data[0].children.map((id) => {
         const commentData = this.state.data[id].data;
-        if(!this.props.selectedTree || this.props.selectedTree.includes(commentData.block_id))
-          return this.makeThreads(id);
+        return this.makeThreads(id);
       });
     }
     return(

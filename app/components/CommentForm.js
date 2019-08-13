@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography, OutlinedInput, Button} from '@material-ui/core';
 import { UserContext } from './UserContext';
@@ -8,36 +8,47 @@ function CommentForm(props) {
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState({});
 
+  useEffect(() => {
+    setMessage({});
+  }, [props.blockId])
+
   function handleChange(e) {
     setComment(e.target.value);
   }
 
   function submitComment() {
-    axios.post('/comment/', {
-      comment: comment,
-      pageId: props.pageId,
-      blockId: props.blockId,
-      parentId: props.parentId
-    })
-    .then( res => {
-      setComment('');
+    if(!comment) {
       setMessage({
-        text: 'Success!',
-        type: 'primary'
+        text: 'no comment ):',
+        type: 'error'
       })
-      if(props.updateComments) props.updateComments();
-    })
-    .catch( err => {
-      console.log(err);
-      if(err.response.status === 401) {
-        window.location.reload();
-      } else {
+    } else {
+      axios.post('/comment/', {
+        comment: comment,
+        pageId: props.pageId,
+        blockId: props.blockId,
+        parentId: props.parentId
+      })
+      .then( res => {
+        setComment('');
         setMessage({
-          text: 'Oops!  Something went wrong.  Try again later?',
-          type: 'error'
-        });
-      }
-    });
+          text: 'Success!',
+          type: 'primary'
+        })
+        if(props.updateComments) props.updateComments();
+      })
+      .catch( err => {
+        console.log(err);
+        if(err.response.status === 401) {
+          window.location.reload();
+        } else {
+          setMessage({
+            text: 'Oops!  Something went wrong.  Try again later?',
+            type: 'error'
+          });
+        }
+      });
+    }
   }
 
   return(

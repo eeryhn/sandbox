@@ -58,7 +58,7 @@ function VTextField(props) {
       );
       if(errorText) setText(errorText);
     }
-  })
+  }, [valid])
 
   return(
     <TextField

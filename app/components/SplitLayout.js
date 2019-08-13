@@ -32,7 +32,7 @@ function SplitLayout(props) {
       <Box className={classes.scroll} flexGrow={1}>
         {props.left}
       </Box>
-      <Box className={classes.scroll} width={(split * 100) + "%"} ml={2} flexShrink="0">
+      <Box className={classes.scroll} width={(split * 100) + "%"} flexShrink="0">
         {props.right}
       </Box>
     </Box>

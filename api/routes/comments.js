@@ -38,6 +38,8 @@ router.post('/', (req, res) => {
     if(user) {
       const { user_id } = user;
       const { pageId: page_id, blockId: block_id, parentId: parent_id, comment } = req.body;
+      if(!comment) res.sendStatus(403).send('comment pls ):');
+      
       knex('comments').insert({ user_id: user_id,
                                 page_id: page_id,
                                 block_id: block_id,
@@ -45,7 +47,7 @@ router.post('/', (req, res) => {
                                 content: comment
                               })
         .then( () => {
-          res.sendStatus(200);
+          res.sendStatus(200).end();
         })
         .catch( function(err) {
           console.log('POST COMMENT ERROR: ', err)
@@ -54,7 +56,7 @@ router.post('/', (req, res) => {
           });
         });
     } else {
-      res.sendStatus(401);
+      res.sendStatus(401).end();
     }
   })(req, res);
 });

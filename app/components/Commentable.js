@@ -6,18 +6,19 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles  } from '@material-ui/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator'
 import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
   container: {
-    background: 'rgba(230, 230, 230, 0.2)',
+    background: fade(theme.palette.primary.light, 0.1),
     padding: '1rem'
   },
   hover: {
-    background: 'rgba(170, 203, 255, 0.1)'
+    background: fade(theme.palette.primary.main, 0.12)
   },
   focused: {
-    background: 'rgba(170, 203, 255, 0.3)'
+    background: fade(theme.palette.primary.main, 0.15)
   }
 })
 
