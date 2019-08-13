@@ -6,7 +6,7 @@
   "scripts": {
     "play": "PORT=3001 node app.js",
     "build": "next build",
-    "start": "NODE_ENV=production npm run build node app.js"
+    "start": "NODE_ENV=production npm run build && node app.js"
   },
   "keywords": [],
   "author": "",
