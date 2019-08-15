@@ -32,7 +32,7 @@ router.put('/register', async (req, res) => {
     const token = jwt.sign(user, process.env.JWT_KEY);
     return res.json({user, token});
   } catch ( err ) {
-    console.log('REGISTRATION ERROR: ', user, err);
+    console.log('REGISTRATION ERROR: ', err);
   }
 
 });

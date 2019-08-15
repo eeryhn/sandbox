@@ -2,7 +2,6 @@ const express = require('express');
 const next = require('next');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
-const axios = require('axios');
 const uid = require('uid-safe');
 const authRoutes = require('./routes/auth');
 const commentRoutes = require('./routes/comment');

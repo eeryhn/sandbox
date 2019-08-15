@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "play": "PORT=3002 node server.js",
-    "start": "NODE_ENV=production PORT=3002 node server.js"
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "",
   "license": "ISC",

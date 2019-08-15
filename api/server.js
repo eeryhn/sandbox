@@ -11,17 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const userRoutes = require('./routes/users');
-const commentRoutes = require('./routes/comments');
-
 app.use(passport.initialize());
 
-app.use('/', userRoutes);
-app.use('/comment', commentRoutes);
+const router = require('./routes/router');
 
-app.get("/ping", (req, res) => {
-  res.json({ "msg": "pong" })
-});
+app.use('/api', router);
 
 // start the Express server
 app.listen(port, () => {
