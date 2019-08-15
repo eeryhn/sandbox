@@ -15,7 +15,11 @@ app.use(passport.initialize());
 
 const router = require('./routes/router');
 
-app.use('/api', router);
+if(dev) {
+  app.use('/', router);
+} else {
+  app.use(process.env.SANDBOX_API_EXT, router);
+}
 
 // start the Express server
 app.listen(port, () => {

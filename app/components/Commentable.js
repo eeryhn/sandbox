@@ -12,7 +12,8 @@ import Box from '@material-ui/core/Box';
 const styles = theme => ({
   container: {
     background: fade(theme.palette.primary.light, 0.1),
-    padding: '1rem'
+    padding: '1rem',
+    marginBottom: '.5rem'
   },
   hover: {
     background: fade(theme.palette.primary.main, 0.12)
