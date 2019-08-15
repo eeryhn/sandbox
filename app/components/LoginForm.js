@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { TextField, Button, Typography } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 
 export default function LoginForm(props) {

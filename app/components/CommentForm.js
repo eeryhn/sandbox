@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Typography, OutlinedInput, Button} from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Button from '@material-ui/core/Button';
 import { UserContext } from './UserContext';
 import axios from 'axios';
 
