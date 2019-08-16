@@ -1,5 +1,5 @@
 const express = require('express');
-const expressStaticGzip = require('express-static-gzip');
+const compression = require('compression');
 const next = require('next');
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session);
@@ -17,10 +17,9 @@ app
   .then(() => {
     const server = express();
 
-    server.use('/pages', expressStaticGzip('./pages', {
-      enableBrotli: true
-    }));
+    server.use(compression());
 
+    server.set('trust proxy', 1);
     const sessionConfig = {
         secret: uid.sync(18),
         cookie: {

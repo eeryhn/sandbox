@@ -4,7 +4,7 @@ const axios = require('axios');
 const router = express.Router();
 
 router.put('/register', (req, res) => {
-  axios.put(`${process.env.API_URL}/register`, req.body)
+  axios.put(`${req.protocol}://${process.env.API_URL}/register`, req.body)
     .then( response => {
       req.session.jwt = response.data.token;
       req.session.user = response.data.user;
@@ -17,14 +17,15 @@ router.put('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  axios.post(`${process.env.API_URL}/login`, req.body)
+  axios.post(`${req.protocol}://${process.env.API_URL}/login`, req.body)
     .then( response => {
       req.session.jwt = response.data.token;
       req.session.user = response.data.user;
       return(res.json({user: response.data.user}));
     })
     .catch( err => {
-      if(err.response.status === 400) {
+      console.log(err);
+      if(err.response && err.response.status === 400) {
         return res.status(400).json(err.response.data);
       }
     });

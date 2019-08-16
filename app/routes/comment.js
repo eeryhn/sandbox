@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
   if(!req.session.jwt) {
     return res.status(401).end();
   }
-  axios.post(`${process.env.API_URL}/comment`, req.body, {
+  axios.post(`${req.protocol}://${process.env.API_URL}/comment`, req.body, {
     headers: {
       'Authorization': `bearer ${req.session.jwt}`
     }

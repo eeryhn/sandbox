@@ -68,7 +68,6 @@ class Comment extends Component {
 
   onClick(e) {
     e.stopPropagation();
-    console.log('hello');
   }
 
   render() {
