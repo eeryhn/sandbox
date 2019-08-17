@@ -45,6 +45,7 @@ export default function LoginForm(props) {
       <TextField
         id="email"
         label="email"
+        autoComplete="username"
         value={fields.email}
         onChange={(e) => handleInput(e, 'email')}
         variant="outlined"
@@ -55,6 +56,7 @@ export default function LoginForm(props) {
         id="password"
         label="password"
         type="password"
+        autoComplete="current-password"
         value={fields.pw}
         onChange={(e) => handleInput(e, 'pw')}
         variant="outlined"

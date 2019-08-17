@@ -81,7 +81,6 @@ export default function RegisterForm(props) {
       <VTextField required
         id="username"
         label="username"
-        autoComplete="username"
         value={fields.name.value}
         valid={fields.name.valid}
         text="3-32 characters, cannot contain whitespace"
@@ -93,7 +92,7 @@ export default function RegisterForm(props) {
       <VTextField required
         id="email"
         label="email"
-        autoComplete="email"
+        autoComplete="username email"
         value={fields.email.value}
         valid={fields.email.valid}
         setValue={(val) => handleInput('email', val)}

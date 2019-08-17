@@ -13,7 +13,7 @@ import { UserContext } from './UserContext';
 
 const styles = theme => ({
   root: {
-    padding: '.75rem',
+    padding: '.75rem 0 0 .75rem',
     borderLeft: `2px solid ${fade(theme.palette.common.black, 0.1)}`,
     marginBottom: '1rem',
     '&:hover': {
@@ -24,13 +24,14 @@ const styles = theme => ({
   userInfo: {
     color: theme.palette.grey['700'],
     fontSize: '.75rem',
-    marginBottom: '.3rem'
+    marginBottom: '.3rem',
+    paddingRight: '.5rem'
   },
   commentBody: {
-    padding: '0 .3rem'
+    padding: '0 .3rem .875rem .3rem'
   },
   children: {
-    margin: '.875rem 0 .25rem .2rem',
+    margin: '.1rem 0 .25rem .2rem',
     padding: '0',
   }
 });
