@@ -41,7 +41,13 @@ class CommentLayout extends PureComponent {
 
   componentDidMount() {
     this.commentableNodes = {};
-    this.content = <Box onClick={this.setSelected}> {this.makeContent()} </Box>;
+    this.content =
+      <Box
+        style={{padding: '.8rem'}}
+        onClick={this.setSelected}
+      >
+        {this.makeContent()}
+      </Box>;
     this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content)});
   }
 
@@ -51,22 +57,21 @@ class CommentLayout extends PureComponent {
   makeContent(node = this.props.content, key = "0") {
     if(!node.props) {
       return (
-        <p key={key}>{node}</p>
+        <span key={key}>{node}</span>
       )
     }
-    let { children } = node.props;
+    let { id, commentable, children, ...nodeProps } = node.props;
     if(Array.isArray(children)) {
       children = children.map(function(child, index) {
         return this.makeContent(child, key + index);
       }, this);
     }
 
-    if(node.props.commentable) {
+    if(commentable) {
       const props = {
+        id: id,
         key: key,
-        component: node.type,
         selected: node.props.id === this.props.selected,
-        ...node.props
       }
       return(
         <Commentable
@@ -74,7 +79,7 @@ class CommentLayout extends PureComponent {
           onClick={(e)=> this.setSelected(e, node.props.id)}
           ref={ elt => this.commentableNodes[node.props.id] = elt }
         >
-          {children}
+          { cloneElement(node, {commentable: undefined}, children) }
         </Commentable>
       )
     } else {

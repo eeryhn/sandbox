@@ -6,20 +6,23 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles  } from '@material-ui/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator'
 import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
   container: {
-    background: fade(theme.palette.primary.light, 0.1),
-    padding: '1rem',
-    marginBottom: '.5rem'
+    borderRadius: '.2rem',
+    border: `1px solid ${theme.palette.grey[300]}`,
+    padding: '.875rem 1rem',
+    margin: '0 -.3rem .5rem -.3rem',
+    '& p': {
+      margin: '0'
+    }
   },
   hover: {
-    background: fade(theme.palette.primary.main, 0.12)
+    borderColor: theme.palette.grey[400]
   },
   focused: {
-    background: fade(theme.palette.primary.main, 0.15)
+    borderColor: theme.palette.grey[900]
   }
 })
 
@@ -54,18 +57,17 @@ class Commentable extends PureComponent {
 
   render() {
     const {focused, hover} = this.state;
-    const {id, classes, children, commentable, selected, setSelected, ...props} = this.props;
+    const {classes, commentable, selected, setSelected, ...props} = this.props;
 
     return(
-      <this.props.component
+      <div
         {...props}
-        id={id}
         className={`${classes.container} ${focused ? classes.focused : ""} ${hover ? classes.hover : ""}`}
         onMouseOver={(e) => this.handleMouseOver(e)}
         onMouseOut={() => this.handleMouseOut()}
       >
-        {children}
-      </this.props.component>
+        {this.props.children}
+      </div>
     );
   }
 }

@@ -51,7 +51,7 @@ app
     })
 
     server.use('/comment', restrictAccess);
-    server.use('/cyclic-numbers', restrictAccess);
+    // server.use('/cyclic-numbers', restrictAccess);
 
     server.get('*', (req, res) => {
       return handle(req, res);

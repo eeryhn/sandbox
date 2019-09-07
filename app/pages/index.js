@@ -22,7 +22,9 @@ const content =
           Speaking somewhat seriously, though, this would probably count as a journal or a blog or a sandbox.  Maybe a lab if we're feeling a bit of fluff.
           We all have little toys and trinkets we want to make.
           Silly things we want to do, just because.
-          Thoughts and ideas, cool problems, elegant solutions, topped off with somewhat-useful-but-not-currently-in-use trivia.
+          Thoughts and ideas and so many notes.
+          Cool problems, elegant solutions, topped off with somewhat-useful-but-not-currently-in-use trivia.
+          All those things we learned, called beautiful, and the reasons why.
           We throw it all into the magic binary void and call it sharing, because it kind of is.
         </p>
         <p>
