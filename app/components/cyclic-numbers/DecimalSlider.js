@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
     gridGap: '2%'
   },
   buttons: {
-
+    minWidth: 'initial',
+    padding: '0'
   },
   paperDisplay: {
     padding: '1rem 0',
@@ -88,7 +89,7 @@ export default function DecimalSlider(props) {
           color="secondary"
           disabled={decPosition === 0}
           onClick={ () => shiftDecimal(-1)}
-          className={classes.button}
+          className={classes.buttons}
         >
           <KeyboardArrowLeft/>
         </Button>
@@ -106,7 +107,7 @@ export default function DecimalSlider(props) {
           color="secondary"
           disabled={decPosition === sequence.length }
           onClick={ () => shiftDecimal(1)}
-          className={classes.button}
+          className={classes.buttons}
         >
           <KeyboardArrowRight/>
         </Button>

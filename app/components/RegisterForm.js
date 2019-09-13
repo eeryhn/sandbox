@@ -79,7 +79,6 @@ export default function RegisterForm(props) {
   return(
     <form>
       <VTextField required
-        id="username"
         label="username"
         value={fields.name.value}
         valid={fields.name.valid}
