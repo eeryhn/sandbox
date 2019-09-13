@@ -64,12 +64,12 @@ export default function EulersTheorem() {
             <React.Fragment>
               <Latex>
                 {`$a \\equiv  r \\hspace{1mm} mod \\hspace{1mm} n$ (read
-                  $a$ is congruent to $r$ modulo $n$) indicates $r$ is the remainder
-                  resulting from division of $a$ by $n$.`}
+                  $a$ is congruent to $r$ modulo $n$) indicates $r$ is the residue
+                  (remainder) resulting from division of $a$ by $n$.`}
               </Latex>
               <div className={classes.note}>
                 <Latex>
-                  {`(e.g. $24 \\equiv 4 \\hspace{1mm} mod \\hspace{1mm} n$ as $24
+                  {`(e.g. $24 \\equiv 4 \\hspace{1mm} mod \\hspace{1mm} 10$: since $24
                     \\div 10$ results in $2$ with a remainder of $4$)`}
                 </Latex>
               </div>

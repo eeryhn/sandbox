@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 export default function Interactive(props) {
   const classes = useStyles();
   return(
-    <Box className={classes.root}>
+    <Box className={classes.root} onClick={ e => e.stopPropagation()}>
       {props.children}
     </Box>
   )

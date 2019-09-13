@@ -14,6 +14,7 @@ const styles = theme => ({
     border: `1px solid ${theme.palette.grey[300]}`,
     padding: '.875rem 1rem',
     margin: '0 -.3rem .5rem -.3rem',
+    lineHeight: '1.5rem',
     '& p': {
       margin: '0'
     }

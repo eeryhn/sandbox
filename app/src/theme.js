@@ -50,7 +50,7 @@ const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        '@font-face': encode
+        '@font-face': encode,
       }
     },
     MuiInputBase: {

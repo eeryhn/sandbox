@@ -95,7 +95,7 @@ export default function Remainders() {
         <StyledTab color={tabColors[0]} label="5" />
         <StyledTab color={tabColors[0]} label="6" />
       </Tabs>
-      <Box style={{fontSize: '1.2rem', letterSpacing: '.1rem', padding: '2rem 0', textAlign: 'center'}}>
+      <Box style={{fontSize: '1.2rem', letterSpacing: '.1rem', margin: '2rem 0 1rem 0', textAlign: 'center'}}>
         <Latex>$10$</Latex>
         <span className={classes.exponent}>
           <Latex>{`$^{${exponent}}$`}</Latex>
@@ -105,6 +105,13 @@ export default function Remainders() {
           <Latex>{`$ \\hspace{2mm} ${remainder}$`}</Latex>
         </span>
         <Latex>{`$\\hspace{1mm} mod \\hspace{1mm} 7$`}</Latex>
+      </Box>
+      <Box style={{fontSize: '.8rem', margin: '1rem 0 2rem 0', textAlign: 'center', color: '#aaa'}}>
+        <Latex>
+          {`$10^{${exponent}} =
+          ${Math.pow(10, exponent)} =
+          7(${Math.floor(Math.pow(10, exponent)/7)}) + ${Math.pow(10, exponent) % 7}$`}
+        </Latex>
       </Box>
       <Tabs
         value={remainder}

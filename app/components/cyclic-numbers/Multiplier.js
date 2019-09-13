@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center'
   },
   product: {
-    fontSize: '1.8rem !important'
+    fontSize: '1rem !important'
   },
   numFragment: {
     letterSpacing: '.2rem',
@@ -29,9 +29,11 @@ const useStyles = makeStyles(theme => ({
       position: 'absolute',
       display: 'flex',
       alignItems: 'center',
+      lineHeight: '3em',
       '& span': {
         background: theme.palette.grey[50],
-        fontSize: '1.1rem'
+        fontSize: '1rem',
+        lineHeight: '1em'
       }
     }
   },
@@ -129,7 +131,7 @@ export default function Multiplier() {
   }
 
   return(
-    <div onClick={(e) => e.stopPropagation()} >
+    <div>
       <Box display="flex" alignItems="center" mb={2}>
         <Latex>
           $n = $
@@ -151,7 +153,8 @@ export default function Multiplier() {
           }}
         />
       </Box>
-      <Box>
+      <Divider />
+      <Box pt={4} pb={4}>
         { (Number.isInteger(parseInt(n)) && parseInt(n) >= 1) ? (
           <div className={classes.results}>
             <Box
