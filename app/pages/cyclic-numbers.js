@@ -81,48 +81,31 @@ const content =
           Ask me why this is important.
         </p>
       </div>
-      <div> probs going to make this a....comiiic?  pardon my dust?
-        <p>
-          Remember when you were in grade school, and you'd just learned about long
-          division, decimals, remainders, all that fun stuff?  And then, to keep you
-          busy, your teacher was all "yes!  One divided by four is 0.25!  Good job!
-          Now what's one divided by seven?"
-        </p>
-        <p>
-          "Oh, I don't know.  Let's find out!"
-        </p>
-        <p>
-          So you sat there taping together pieces of paper because for some reason it
-          keeps going off the page, and when is it going to end?
-        </p>
-        <p>
-          Then, possibly earlier on, maybe before you even hit the edge of the paper
-          you started to think "wait, haven't I done this before?".  And you realised
-          you had.
-        </p>
-        <p>
-          Because every time you hit a remainder of 1, the sequence began again.
-        </p>
-        <p>
-          If you were an "overachiever", you took this new found cheat, taped
-          together a full ream, and sped through the rest of the lines to show teacher.
-        </p>
+      <div id="body-1" commentable>
+        <img
+          src='/static/imgs/1.png'
+          style={{maxWidth: '100%'}}
+        />
+        <Box mt={2}>
+          And that's how you learned trees are good and you shouldn't
+          waste paper.
+        </Box>
+        <Box mt={2}>
+          Incidentally, that's also how you learned not all fractions have clean decimal
+          representations.
+        </Box>
       </div>
-      <p >
-        And that's how you learned trees are good and you shouldn't waste paper.
-      </p>
-      <p>
-        That's also how you learned about repeating decimals.
-      </p>
       <p id="body-3" commentable>
-        Somewhere along the way, teacher might also have mentioned that the multiplicative
-        inverse of numbers not divisible by 2 or 5 would be repeating decimals.
+        Somewhere along the way, teacher might also have mentioned that a fraction
+        would be a repeating decimal if the denominator was not divisible by 2 or 5.
       </p>
       <p id="body-4" commentable>
-        In otherwords, the multiplicative inverse of a number, <Latex>$n$</Latex>,
-        is a repeating decimal if <Latex>$n$</Latex> is <b> relatively prime </b> (also
-        called <b> coprime</b>) to <Latex>$10$, which just means $n$ and $10$</Latex>
-        do not share any non-trivial factors (1 being the unique and completely trivial case).
+        In otherwords, the multiplicative inverse of a number
+        (<Latex>{`$\\frac{1}{n}$`}</Latex>), can be represented by a
+        repeating sequence if <Latex>$n$</Latex> is <b> relatively
+        prime </b> (also called <b> coprime</b>) to <Latex>$10$, which just means
+        $n$ and $10$</Latex> do not share any non-trivial factors (1 being the
+        unique and completely trivial case).
       </p>
       <div id="body-5" commentable>
         <Box mb={1}>
@@ -298,16 +281,15 @@ const content =
           $142857 \times 7 = 999999$
         </Latex>
         However, in order for one segment of the decimal to have any impact on the next,
-        there needs to be something to carry over.
-      </div>
-      <div id="carryover-diagram" commentable>
-        Insert Diagram pls thx
+        there needs to be "carryover", which is to say: the length of multiple must
+        exceed the length of the number of interest (in this case, the length of the
+        multiple must exceed 6 digits).
       </div>
       <div id="carryover-2" commentable>
         <Latex>
           This, of course, doesn't happen when we're multiplying by $n \leq 7$.
           It is also why we can expect larger multiples of $142857$ to no longer preserve
-          the original sequence.  They are not, however, entirely uninteresting:
+          the original sequence.  This does not mean they are entirely uninteresting:
         </Latex>
         <Box mt={2}>
           <Latex>
@@ -327,7 +309,7 @@ const content =
       </div>
       <div id="interactive-8" commentable>
         <Box mb={2}>
-          Let's see this in action:  try entering a positive
+          To see this in action:  try entering a positive
           number into the textbox.
         </Box>
         <Note id="note-3" commentable>
@@ -354,13 +336,17 @@ const content =
       </p>
       <p id="closing-2" commentable>
         However, the set of circumstances that make 7 such a special number in decimal
-        apply to other numbers.  More than that, they apply to other numbers in other
-        numeric systems.  In fact, many of the counting tricks we use have counterparts
-        in other numeric systems.  For example, in ternary, we can determine divisibility by
-        2 the same way we determine divisibility by 3 in decimal, but more on that
-        another day.
+        apply to other numbers, such as 17.  More than that, though, they apply to other numbers in other
+        numeric systems.  For instance, 13 is a cyclic number in base 5.
       </p>
       <p id="closing-3" commentable>
+        Perhaps one of my favorite things about numbers is the fact that many of these
+        quirks and tricks we have in decimal do exist in other number systems.
+        At the tip of the iceburg: in ternary, we can determine divisibility by
+        2 the same way we determine divisibility by 3 in decimal (i.e. if the sum
+        of the digits is divisible by 2 in ternary, then the number is divisible by 2).
+      </p>
+      <p id="closing-4" commentable>
         The point I'm trying to make is: we've hardly hit a wall.
         There's a lot more we could show.  There are more conclusions we could draw.
         With just some baseline knowledge and a bit of digging, there are so many more connections
@@ -368,14 +354,7 @@ const content =
         is as much as I can publish to some obscure crevice of the internet with
         a somewhat reasonable degree of confidence and responsibility.
       </p>
-      <p id="closing-4" commentable>
-        Someday, somebody out there is going to say "technically you're just backtracking",
-        and I'm going to say "no, we took two lefts and then another, and found
-        ourselves exactly where we thought we'd be."  Given all the twists and turns,
-        and how easy it was to tunnel vision as we were walking, I really do think
-        that's something worth marveling.
-      </p>
-      <p id="closing-5" commentable>
+      <p id="closing-6" commentable>
         So if you made it down here...you're probably somebody
         I asked to proofread or fact check.  But, if you're not, I hope you learned
         something new. More than that, I hope you're excited about it.  I hope

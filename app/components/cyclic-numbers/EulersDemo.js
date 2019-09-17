@@ -106,7 +106,7 @@ export default function EulersDemo() {
         {
           Array.from( { length: ( totatives.length  / sequence.length ) } ,
               (_, index) => (
-                <Paper className={classes.decimalSegment} key={index} >
+                <Paper key={`decimal-${index}`} className={classes.decimalSegment} >
                   { sequence }
                 </Paper>
               )
@@ -176,7 +176,7 @@ export default function EulersDemo() {
             {
               totatives.map( (val, index) => {
                 return(
-                  <Paper>
+                  <Paper key={`totatives-${val}`}>
                     { val }
                   </Paper>
                 )

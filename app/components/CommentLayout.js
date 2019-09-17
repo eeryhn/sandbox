@@ -22,6 +22,7 @@ import FixedNav from './FixedNav';
 import SplitLayout from './SplitLayout';
 import Commentable from './Commentable';
 import CommentBlock from './CommentBlock';
+import ScrollNav from './ScrollNav';
 
 class CommentLayout extends PureComponent {
 
@@ -40,6 +41,8 @@ class CommentLayout extends PureComponent {
   }
 
   componentDidMount() {
+    const MIN_WIDTH = 750;
+
     this.commentableNodes = {};
     this.content =
       <Box
@@ -48,7 +51,14 @@ class CommentLayout extends PureComponent {
       >
         {this.makeContent()}
       </Box>;
-    this.setState({commentableSubtrees: this.getCommentableSubtrees(this.props.content)});
+    this.setState({
+      commentableSubtrees: this.getCommentableSubtrees(this.props.content),
+      showComments: window.innerWidth > MIN_WIDTH
+    });
+  }
+
+  componentDidUpdate() {
+    console.log(this.state);
   }
 
   /**
@@ -136,19 +146,26 @@ class CommentLayout extends PureComponent {
   }
 
   render() {
-    const comments =
-      <CommentBlock
-        pageId={this.props.pageId}
-        selectedId={this.state.selected}
-        selectedTree={this.getSelectedSubtree()}
-      />;
-    return(
-      <FixedNav pageId={this.props.pageId}>
-        <SplitLayout left={comments} right={this.content}/>
-      </FixedNav>
-    );
+    if(this.state.showComments) {
+      const comments =
+        <CommentBlock
+          pageId={this.props.pageId}
+          selectedId={this.state.selected}
+          selectedTree={this.getSelectedSubtree()}
+        />;
+      return(
+        <FixedNav pageId={this.props.pageId}>
+          <SplitLayout left={comments} right={this.content}/>
+        </FixedNav>
+      );
+    } else {
+      return (
+        <ScrollNav pageId={this.props.pageId}>
+          {this.content}
+        </ScrollNav>
+      )
+    }
   }
-
 }
 
 export default CommentLayout;
