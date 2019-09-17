@@ -57,10 +57,6 @@ class CommentLayout extends PureComponent {
     });
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
   /**
    * Rebuild content, setup refs.
    */
