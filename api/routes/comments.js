@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   if(!dir) dir = 'desc';
   knex.select('comments.*', 'users.name').from('comments')
     .innerJoin('users', 'comments.user_id', 'users.user_id')
-    .where({page_id: req.query.page_id})
+    .where({page_id: page_id})
     .orderBy(sort, dir)
     .then((comments) => {
       let processedComments = {
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
       const { user_id } = user;
       const { pageId: page_id, blockId: block_id, parentId: parent_id, comment } = req.body;
       if(!comment) res.sendStatus(403).send('comment pls ):');
-      
+
       knex('comments').insert({ user_id: user_id,
                                 page_id: page_id,
                                 block_id: block_id,
