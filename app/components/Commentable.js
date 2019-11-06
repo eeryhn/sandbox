@@ -6,24 +6,32 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles  } from '@material-ui/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import Box from '@material-ui/core/Box';
 
 const styles = theme => ({
   container: {
-    borderRadius: '.2rem',
-    border: `1px solid ${theme.palette.grey[300]}`,
+    borderColor: props =>
+      props.color ? fade(theme.palette[props.color]['light'], .5) : theme.palette.grey[300],
+    borderWidth: '1px 4px 1px 1px',
+    borderStyle: 'solid',
     padding: '.875rem 1rem',
-    margin: '0 -.3rem .5rem -.3rem',
+    margin: '0 -.3rem',
     lineHeight: '1.5rem',
     '& p': {
       margin: '0'
+    },
+    '&:not(:last-child)': {
+      marginBottom: '.875rem'
     }
   },
   hover: {
-    borderColor: theme.palette.grey[400]
+    borderColor: props =>
+      props.color ? `${theme.palette[props.color]['light']}` : `${theme.palette.grey[400]} !important`
   },
   focused: {
-    borderColor: theme.palette.grey[900]
+    borderColor: props =>
+      props.color ? `${theme.palette[props.color]['main']}` : `${theme.palette.grey[900]} !important`
   }
 })
 

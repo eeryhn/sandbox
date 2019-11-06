@@ -1,11 +1,10 @@
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import CommentLayout from '../components/CommentLayout';
-import Interactive from '../components/comment-layout/Interactive';
-import '../node_modules/katex/dist/katex.min.css';
+import CommentLayout from '../../components/CommentLayout';
+import '../../node_modules/katex/dist/katex.min.css';
 import Latex from 'react-latex';
-import * as Interactives from '../components/cyclic-numbers/exports';
+import * as Interactives from '../../components/cyclic-numbers/exports';
 
 function NumDisplay(props) {
   return(
@@ -40,31 +39,29 @@ const content =
         <Box style={{fontSize: "1.5rem", letterSpacing: ".1rem"}}>
           <Latex displayMode>$$142857$$</Latex>
         </Box>
+        <Box mb={1.5}>
+          Because it's special.  Obviously.  Otherwise we wouldn't talk about it.
+          Technically speaking, we call this a <b>cyclic number</b> because...well,
+          here's a little demo. Try dragging the highlighted segment.
+        </Box>
+        <div id="interactive-0" color="primary" commentable>
+          <Interactives.CNSlider/>
+        </div>
       </div>
-      <p id="intro-1" commentable>
-        A cyclic number.  By some definitions, the only one in decimal.
-        Here's a little demo to show what makes this number worth classifying.
-        Try dragging the highlighted segment.
-      </p>
-      <Interactive>
-        <Interactives.CNSlider/>
-      </Interactive>
-      <Latex id="intro-2" commentable>
-        So we can think of cyclic numbers as integers of length $n$
-        for which the first $n$ multiples rearrange their digits in this
-        cyclical way.
-      </Latex>
-      <p id="intro-3" commentable>
-        In and of itself, this is just a somewhat fun piece of trivia.
-        Still, we can explain why this number must behave the way it does.
-        Of course, these reasons can involve some surface level number theory, but
-        they also relate to basic intuitions we likely learned at one point or
-        another. I like to think they make those intuitions just a little more
-        meaningful.
+      <div id="intro-1" commentable>
+        So we can think of a <b>cyclic number</b> as an integer of length <Latex>$n$</Latex>
+        for which the first <Latex>$n$</Latex> multiples are represented by a
+        cycling of its digits (i.e. ...revisit above?).
+      </div>
+      <p id="intro-2" commentable>
+        In and of itself, this is just a somewhat interesting piece of trivia.
+        Some random fun fact following the words "did you know...", every now
+        and then invoking the question "I wonder why that is" which is possibly followed by
+        a "well, let's see..."
       </p>
     </div>
     <Typography id="title0" variant="h4" commentable>
-      So let's look a little closer
+      So let's see...
     </Typography>
     <div id="body" commentable>
       <div id="body-0" commentable>
@@ -86,55 +83,64 @@ const content =
           src='/static/imgs/1.png'
           style={{maxWidth: '100%'}}
         />
-        <Box mt={2}>
-          And that's how you learned trees are good and you shouldn't
-          waste paper.
-        </Box>
-        <Box mt={2}>
-          Incidentally, that's also how you learned not all fractions have clean decimal
-          representations.
-        </Box>
       </div>
-      <p id="body-3" commentable>
-        Somewhere along the way, teacher might also have mentioned that a fraction
+      <Box id="save-the-trees" commentable>
+        And that's how you learned trees are good and you shouldn't
+        waste paper.
+      </Box>
+      <Box id="body-2" commentable>
+        And also that, when calculating by way of long division, most decimal
+        representations of fractions have repeating segments.  In particular,
+        this occurs at the point you see the same remainder twice
+        (e.g. <Latex>{'$\\frac{1}{6}$'}</Latex>),
+        or the remainer equals the numerator (e.g <Latex>{'$\\frac{1}{7}$'}</Latex>).
+      </Box>
+    </div>
+    <Typography id="title1" variant="h4" commentable>
+      Let's learn a new word
+    </Typography>
+    <div id="eulers" commentable>
+      <p id="eulers-0" commentable>
+        Somewhere along the way, somebody might also have mentioned that a fraction
         would be a repeating decimal if the denominator was not divisible by 2 or 5.
       </p>
-      <p id="body-4" commentable>
+      <p id="eulers-1" commentable>
         In otherwords, the multiplicative inverse of a number
         (<Latex>{`$\\frac{1}{n}$`}</Latex>), can be represented by a
-        repeating sequence if <Latex>$n$</Latex> is <b> relatively
+        repeating sequence (such as <Latex>{'$0.\\overline{142857}$'}</Latex>,
+        not <Latex>{'$0.1\\overline{6}$'}</Latex>, which is just...something.  Else.
+        Entirely.) if <Latex>$n$</Latex> is <b> relatively
         prime </b> (also called <b> coprime</b>) to <Latex>$10$, which just means
         $n$ and $10$</Latex> do not share any non-trivial factors (1 being the
         unique and completely trivial case).
       </p>
-      <div id="body-5" commentable>
+      <div id="eulers-2" commentable>
         <Box mb={1}>
-          In part, this relates to the somewhat intimidatingly named <b>Euler's Totient Theorem</b>,
+          In part, this relates to the somewhat intimidating <b>Euler's Totient Theorem</b>,
           which states:
         </Box>
-        <Interactive>
+        <div id="interactive-1" color="primary" commentable>
           <Interactives.EulersTheorem/>
-        </Interactive>
+        </div>
         <Note id="note-0" commentable>
           <b>As a side note:</b> the term <b>totient</b> was later coined by a different
-          mathematician to refer to the number of numbers less than a given number that
-          are relatively prime to said given number (i.e. the value given by — the
-          now called — Euler's totient function.).
+          mathematician to refer to the value given by — the now called — Euler's totient function.
           <p>
             Relish in the fact that mathematicians have been so interested in this
-            sum as to give it a  — less than memorable — name.  Relish, also, in
-            the fact that millions of students are made to remember the word anyway.
+            sum as to give it a less than memorable name.  Relish, also, in
+            the fact that millions of students are asked to remember the word anyway.
           </p>
         </Note>
       </div>
-      <div id="body-6" commentable>
+      <div id="eulers-3" commentable>
         <Box mb={2}>
           Proving the above theorem isn't really in the scope of this writeup.
-          Someday, maybe, but not here.  For now, we'll take it to be true, and
-          examine how it fits into some commonplace calculations.
+          The theorem itself isn't really, either, but totient is a funny word
+          so...it's worth it? Anyway, let's just take it to be true and
+          see how this detour is relevant.
         </Box>
         <Latex>
-          Namely, if we let $a = 10$:
+          Let's let $a = 10$, Euler's Totient Theorem says:
         </Latex>
         <NumDisplay>
           <Latex displayMode>
@@ -142,19 +148,18 @@ const content =
           </Latex>
         </NumDisplay>
         We can conclude, then, that since
-        <Latex displayMode>{`$10^{\\phi(n)} \\div n$`}</Latex>
+        <NumDisplay>
+          <Latex displayMode>{`$10^{\\phi(n)} \\div n$`}</Latex>
+        </NumDisplay>
         results in a remainder of <Latex>$1$</Latex>, if we were to do a manual
         calculation of the trailing decimal:
-        <Latex displayMode>{`$1.\\underbrace{00 \\ldots 0}_{\\phi(n)} \\div n$`}</Latex>
-        we would similarly see a "remainder" of 1 at this position, and can thus
-        expect the decimal to repeat here.
-        <Box mt={2}>
-          From this, we can conclude that the multiplicative
-          inverse, <Latex>{`$\\frac{1}{n}$`}</Latex>, is always a repeating decimal when
-          <Latex>$n$ is relatively prime to $10$</Latex>.
-        </Box>
+        <NumDisplay>
+          <Latex displayMode>{`$1.\\underbrace{00 \\ldots 0}_{\\phi(n)} \\div n$`}</Latex>
+        </NumDisplay>
+        we would similarly see a "remainder" of <Latex>$1$</Latex> at this position.
+        In otherwords, the decimal will repeat here.
       </div>
-      <div id="body-8" commentable>
+      <div id="eulers-4" commentable>
         <Box mb={2}>
           It's important to note that this does not mean the repeating
           interval is of length <Latex>{`$\\phi(n)$`}</Latex>.  In fact, it generally
@@ -166,26 +171,26 @@ const content =
           You should see:
           <ul>
             <li>
-              The list of integers counted by <Latex>{`$\\phi(n)$`}</Latex>
+              The value
+              of <Latex>{`$\\frac{1}{n}$`}</Latex> up to
+              the <Latex>{`$\\phi(n)$`}</Latex> decimal position,
+              if <Latex>$n$ and $10$</Latex> are coprime
             </li>
             <li>
               The value of <Latex>{`$\\phi(n)$`}</Latex>
             </li>
             <li>
-              The value
-              of <Latex>{`$\\frac{1}{n}$`}</Latex> up to
-              the <Latex>{`$\\phi(n)$`}</Latex> decimal position,
-              if <Latex>$n$ is relatively prime to $10$</Latex>
+              The list of integers counted by <Latex>{`$\\phi(n)$`}</Latex>
             </li>
           </ul>
         </Box>
-        <Interactive>
+        <div id="interactive-2" color="primary" commentable>
           <Interactives.EulersDemo/>
-        </Interactive>
+        </div>
       </div>
     </div>
-    <Typography id="title1" variant="h4" commentable>
-      Back to 142857
+    <Typography id="title2" variant="h4" commentable>
+      Back on topic?
     </Typography>
     <div id="body2" commentable>
       <Box mb={2}>
@@ -206,7 +211,7 @@ const content =
       <div id="body2-1" commentable>
         <Box mb={2}>
           This is actually kind of exciting, but for our purposes, this just means
-          the first six powers of 10 to have unique values modulo 7.  Or,
+          the first six powers of 10 have unique values modulo 7.  Or,
           more formally —
         </Box>
         <div>
@@ -221,24 +226,23 @@ const content =
             To demonstrate, try clicking on an exponent value below to show the
             corresponding remainder, or the vice versa.
           </Box>
-          <Interactive>
+          <div id="interactive-3" color="primary" commentable>
             <Interactives.Remainders/>
-          </Interactive>
+          </div>
         </div>
       </div>
       <div id="body2-2" commentable>
         <Box mb={2}>
           This also means that distinct values <Latex>{'$\\frac{n}{7}$'}</Latex> define the trailing decimal
-          as we cycle through the sequence <Latex>{'$0.\\overline{142857}$'}</Latex> by
-          multiplying by 10:
+          as we multiply <Latex>{'$0.\\overline{142857}$'}</Latex> by powers of 10, thus cycling
+          through its digits:
         </Box>
-        <Interactive>
+        <div id="interactive-4" color="primary" commentable>
           <Interactives.DecimalSlider divisor={7}/>
-        </Interactive>
+        </div>
         <Note id="note-2" commentable>
           <b>Note</b>: This interactive in particular was inspired by the comparitively
-          concise and all around cooler and
-          better <Link
+          concise <Link
             target="_blank"
             rel="noreferrer"
             href="https://www.youtube.com/watch?v=WUlaUalgxqI"
@@ -247,15 +251,15 @@ const content =
         <Box mb={2}>
           For comparison, if we do the same with <Latex>{'$0.\\overline{3}$'}</Latex>
         </Box>
-        <Interactive>
+        <div id="interactive-5" color="primary" commentable>
           <Interactives.DecimalSlider divisor={3}/>
-        </Interactive>
+        </div>
         <Box mt={2} mb={2}>
           Or <Latex>{'$\\frac{1}{21}$'}</Latex>, given by <Latex>{'$0.\\overline{047619}$'}</Latex>
         </Box>
-        <Interactive>
+        <div id="interactive-6" color="primary" commentable>
           <Interactives.DecimalSlider divisor={21}/>
-        </Interactive>
+        </div>
       </div>
     </div>
     <Typography id="title3" variant="h4" commentable>
@@ -265,21 +269,27 @@ const content =
       <div id="carryover-0" commentable>
         If I'm lucky and very not alone, somebody out there is asking about carryover.
         Something like, why does
-        <Latex displayMode>
-          {'$2 \\times 0.\\overline{142857} = 0.\\overline{285714}$'}
-        </Latex>
+        <NumDisplay>
+          <Latex displayMode>
+            {'$2 \\times 0.\\overline{142857} = 0.\\overline{285714}$'}
+          </Latex>
+        </NumDisplay>
           Automatically mean
-        <Latex displayMode>
-          $2 \times 142857 = 285714$
-        </Latex>
+        <NumDisplay>
+          <Latex displayMode>
+            $2 \times 142857 = 285714$
+          </Latex>
+        </NumDisplay>
         Or, rather, why does the rest of the decimal not matter?
       </div>
       <div id="carryover-1" commentable>
         And the answer is, more or less: it does, and this is most easily noted
         in multiplication by <Latex>$7$</Latex> which gives:
-        <Latex displayMode>
-          $142857 \times 7 = 999999$
-        </Latex>
+        <NumDisplay>
+          <Latex displayMode>
+            $142857 \times 7 = 999999$
+          </Latex>
+        </NumDisplay>
         However, in order for one segment of the decimal to have any impact on the next,
         there needs to be "carryover", which is to say: the length of multiple must
         exceed the length of the number of interest (in this case, the length of the
@@ -289,11 +299,11 @@ const content =
         <Latex>
           This, of course, doesn't happen when we're multiplying by $n \leq 7$.
           It is also why we can expect larger multiples of $142857$ to no longer preserve
-          the original sequence.  This does not mean they are entirely uninteresting:
+          the original sequence.
         </Latex>
         <Box mt={2}>
           <Latex>
-            When we consider multiples of the repeating decimal,
+            This does not mean they are entirely uninteresting.  When we consider multiples of the repeating decimal,
             we know the leading values from one segment carry over into the trailing values
             of the next.  As such, we can also expect splitting the product of $n \times 142857$
             at the 6th, 12th, etc. positions from the right, and adding the resulting
@@ -307,7 +317,7 @@ const content =
           </Latex>
         </Box>
       </div>
-      <div id="interactive-8" commentable>
+      <div id="carryover-3">
         <Box mb={2}>
           To see this in action:  try entering a positive
           number into the textbox.
@@ -316,12 +326,11 @@ const content =
           <b>Note:</b> due to some rather well known technical limitations,
           values of <Latex>{`$n > 63050457833$`}</Latex> will be not quite
           right.  I haven't bound the inputs here mostly because integer
-          overflow somehow manages to amuse me, and this is where I go to play
-          so...
+          overflow somehow manages to amuse me, and this is a sandbox so...
         </Note>
-        <Interactive>
+        <div id="interactive-7" color="primary" commentable>
           <Interactives.Multiplier/>
-        </Interactive>
+        </div>
       </div>
     </div>
     <Typography id="closing-title" variant="h4" commentable>
@@ -335,31 +344,14 @@ const content =
         has this property.
       </p>
       <p id="closing-2" commentable>
-        However, the set of circumstances that make 7 such a special number in decimal
-        apply to other numbers, such as 17.  More than that, though, they apply to other numbers in other
-        numeric systems.  For instance, 13 is a cyclic number in base 5.
+        Of course, the set of circumstances that make 7 such a special number apply
+        to other numbers, such as 17.  They also apply to other numbers in other
+        numeric systems.  For instance, 8 (written 13 in quinary) is a cyclic
+        number in base 5.
       </p>
       <p id="closing-3" commentable>
-        Perhaps one of my favorite things about numbers is the fact that many of these
-        quirks and tricks we have in decimal do exist in other number systems.
-        At the tip of the iceburg: in ternary, we can determine divisibility by
-        2 the same way we determine divisibility by 3 in decimal (i.e. if the sum
-        of the digits is divisible by 2 in ternary, then the number is divisible by 2).
-      </p>
-      <p id="closing-4" commentable>
-        The point I'm trying to make is: we've hardly hit a wall.
-        There's a lot more we could show.  There are more conclusions we could draw.
-        With just some baseline knowledge and a bit of digging, there are so many more connections
-        and patterns we can anticipate and trace.  This is just where we stop because this
-        is as much as I can publish to some obscure crevice of the internet with
-        a somewhat reasonable degree of confidence and responsibility.
-      </p>
-      <p id="closing-6" commentable>
-        So if you made it down here...you're probably somebody
-        I asked to proofread or fact check.  But, if you're not, I hope you learned
-        something new. More than that, I hope you're excited about it.  I hope
-        you have questions and I hope you want answers, because numbers really
-        do describe some of the most amazing worlds we have.
+        On the other hand, cyclic numbers don't exist in all numeric systems, and
+        there are reasons for that, as well. But more on that another day.
       </p>
     </div>
   </div>

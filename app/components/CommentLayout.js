@@ -57,10 +57,6 @@ class CommentLayout extends PureComponent {
     });
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
   /**
    * Rebuild content, setup refs.
    */
@@ -70,7 +66,7 @@ class CommentLayout extends PureComponent {
         <span key={key}>{node}</span>
       )
     }
-    let { id, commentable, children, ...nodeProps } = node.props;
+    let { id, commentable, children, color, ...nodeProps } = node.props;
     if(Array.isArray(children)) {
       children = children.map(function(child, index) {
         return this.makeContent(child, key + index);
@@ -82,6 +78,7 @@ class CommentLayout extends PureComponent {
         id: id,
         key: key,
         selected: node.props.id === this.props.selected,
+        color: color
       }
       return(
         <Commentable
@@ -89,7 +86,7 @@ class CommentLayout extends PureComponent {
           onClick={(e)=> this.setSelected(e, node.props.id)}
           ref={ elt => this.commentableNodes[node.props.id] = elt }
         >
-          { cloneElement(node, {commentable: undefined}, children) }
+          { cloneElement(node, {commentable: undefined, id: undefined}, children) }
         </Commentable>
       )
     } else {

@@ -36,8 +36,11 @@ export default function NavMenu() {
   const path = router.route;
   const pages = {
     'Neverending Story': '/todos',
+    'Misc': {
+      'Cyclic Numbers': 'misc/cyclic-numbers'
+    },
     'In Progress': {
-      'Cyclic Numbers': '/cyclic-numbers'
+      'Discrete Math Basics': '/discrete/basics'
     }
   }
 

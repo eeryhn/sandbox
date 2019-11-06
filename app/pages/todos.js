@@ -52,23 +52,40 @@ const nth = [
 
 const content =
   <div id="0" commentable>
-    <Typography id="priority-header" variant="h6" commentable>
-      Priority...ish
+    <div id="priority-wrapper" commentable>
+      <Typography id="priority-header" variant="h6" commentable>
+        Priority...ish
+      </Typography>
+      <List>
+        {important.map( (item, index) => {
+          return(
+            <div key={index} id={`priority-${index}`} style={{margin: '.5rem 0'}} commentable>
+              <ListItem {...item} commentable/>
+            </div>
+          )
+        })}
+      </List>
+    </div>
+    <div id="nth-wrapper" commentable>
+      <Typography id="nth-header" variant="h6" commentable>
+        Nice to haves
+      </Typography>
+      <List>
+        {nth.map( (item, index) => {
+          return(
+            <div key={index} id={`priority-${index}`} style={{margin: '.5rem 0'}} commentable>
+              <ListItem {...item} commentable/>
+            </div>
+          )
+        })}
+      </List>
+    </div>
+    <Typography id="log-header" variant="h6" commentable>
+      Logs...kind of
     </Typography>
-    <List>
-      {important.map( (item, index) => {
-        return(
-          <div key={index} id={`priority-${index}`} style={{margin: '.5rem 0'}} commentable>
-            <ListItem {...item} commentable/>
-          </div>
-        )
-      })}
-    </List>
-    <Typography id="nth-header" variant="h6" commentable>
-      Nice to haves
-    </Typography>
-    <List>
-    </List>
+    <div id="log-body" commentable>
+      Sometimes I do things.  But later.
+    </div>
   </div>
 
 

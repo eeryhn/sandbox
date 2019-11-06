@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles( theme => ({
   root: {
+    padding: "1rem",
     fontSize: "1.5rem",
     letterSpacing: ".2rem",
     "& > div": {
@@ -37,6 +38,12 @@ const useStyles = makeStyles( theme => ({
     "&:hover": {
       backgroundColor: fade(theme.palette.secondary.main, 0.3)
     }
+  },
+  active: {
+    backgroundColor: `${fade(theme.palette.secondary.main, 0.5)} !important`
+  },
+  noSelect: {
+    userSelect: 'none'
   }
 }));
 
@@ -77,15 +84,21 @@ export default function CNSlider() {
   const string = "142857142857"
 
   return(
-    <Box display="flex" flexWrap="wrap" justifyContent="center" className={classes.root}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      className={`${classes.root} ${classes.noSelect}`}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
       <Box position="relative" display="inline-block" className={classes.sliderNums}>
         <Box
           left={`${xPos}px`}
-          className={classes.slider}
+          className={`${classes.slider} ${active && classes.active}`}
           onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
         />
         {
           [...string].map( (char, index) => {

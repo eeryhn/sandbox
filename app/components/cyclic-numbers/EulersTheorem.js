@@ -1,8 +1,36 @@
 import React, { useState } from 'react';
 import Latex from 'react-latex';
 import Box from '@material-ui/core/Box';
+import Badge from '@material-ui/core/Badge';
 import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+
+const StyledBadge = withStyles(theme => ({
+  badge: {
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: '$ripple 1.2s infinite ease-in-out',
+      border: `1px solid ${theme.palette.secondary.main}`,
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}))(Badge);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,8 +54,21 @@ const useStyles = makeStyles(theme => ({
   },
   tooltipTrigger: {
     color: theme.palette.secondary.light,
+    animation: '$pulse .8s infinite linear',
     "&:hover": {
-      color: theme.palette.secondary.dark
+      color: theme.palette.secondary.dark,
+      animation: 'none'
+    }
+  },
+  '@keyframes pulse': {
+    '0%': {
+      opacity: 1,
+    },
+    '50%': {
+      opacity: .5,
+    },
+    '100%': {
+      opacity: 1,
     }
   }
 }));
@@ -59,17 +100,16 @@ export default function EulersTheorem() {
         <Latex>{`$\\equiv \\hspace{1mm}$`}</Latex>
         <Tooltip
           classes={{tooltip: classes.tooltip}}
-          placement="bottom"
+          placement="top"
           title={
             <React.Fragment>
               <Latex>
-                {`$a \\equiv  r \\hspace{1mm} mod \\hspace{1mm} n$ (read
-                  $a$ is congruent to $r$ modulo $n$) indicates $r$ is the residue
-                  (remainder) resulting from division of $a$ by $n$.`}
+                {`$a \\equiv  r \\hspace{1mm} mod \\hspace{1mm} n$ indicates $r$
+                  is the remainder resulting from division of $a$ by $n$.`}
               </Latex>
               <div className={classes.note}>
                 <Latex>
-                  {`(e.g. $24 \\equiv 4 \\hspace{1mm} mod \\hspace{1mm} 10$: since $24
+                  {`(e.g. $24 \\equiv 4 \\hspace{1mm} mod \\hspace{1mm} 10$ since $24
                     \\div 10$ results in $2$ with a remainder of $4$)`}
                 </Latex>
               </div>
