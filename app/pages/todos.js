@@ -11,7 +11,7 @@ const important = [
       `comment on click => highlight relevant text block?
       do we set it as selected, or just highlight.  Do we scroll to, or leave it?
       Interaction is mildly unclear.`,
-    done: false
+    done: true
   },{
     primary: "session renewal",
     secondary: "haha, they just expire after three days for now.  Need to better investigate token renewal.",
@@ -30,7 +30,7 @@ const important = [
     done: false
   },{
     primary: "password recovery",
-    secondary: "setup mailer, essentially.",
+    secondary: "setup mailer, pretty much.  or make a new account, how much do I actually care.  not at all?",
     done: false
   },{
     primary: "User settings",
@@ -42,7 +42,7 @@ const important = [
 const nth = [
   {
     primary: "badges",
-    secondary: "indicate # of comments per block?"
+    secondary: "indicate # of comments per block?  Or put it at bottom?  Top?"
   },
   {
     primary: "user pages",
@@ -80,11 +80,14 @@ const content =
         })}
       </List>
     </div>
-    <Typography id="log-header" variant="h6" commentable>
-      Logs...kind of
-    </Typography>
-    <div id="log-body" commentable>
-      Sometimes I do things.  But later.
+    <div>
+      <Typography id="log-header" variant="h6" commentable>
+        Logs...kind of
+      </Typography>
+      <div id="log-body" commentable>
+        11.10.2019 - Experimenting with some comment interactivity.  Likely to be
+        buggy, but at least we started?
+      </div>
     </div>
   </div>
 

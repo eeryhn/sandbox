@@ -102,7 +102,8 @@ const content =
     <div id="eulers" commentable>
       <p id="eulers-0" commentable>
         Somewhere along the way, somebody might also have mentioned that a fraction
-        would be a repeating decimal if the denominator was not divisible by 2 or 5.
+        could be represented by a repeating sequence if the denominator was not
+        divisible by 2 or 5.
       </p>
       <p id="eulers-1" commentable>
         In otherwords, the multiplicative inverse of a number
@@ -334,14 +335,24 @@ const content =
       </div>
     </div>
     <Typography id="closing-title" variant="h4" commentable>
-      Soapbox
+      So...
     </Typography>
     <div id="closing" commentable>
+      <p id="closing-0" commentable>
+        That was...fun?  Maybe interesting?  I hope it was something, at least.
+      </p>
       <p id="closing-1" commentable>
-        The number 142857 is unique in that it is the only cyclic number
-        in <b>decimal</b> (base 10) without a leading zero.  Which is to say,
-        if we don't count leading zeros, it is the only number in decimal that
-        has this property.
+        Well, in truth, I hope you learned something new.  I hope it got you a
+        little excited, even.  And there's so much more I can put here.  So much more
+        I want to write down.
+        Something like — numbers are kind of amazing, and the study of numbers is something
+        I think everybody could enjoy on some level.
+      </p>
+      <p id="closing-2" commentable>
+        But that's just a thought.  In closing: the number 142857 is unique in
+        that it is the only cyclic number in <b>decimal</b> (base 10) without a
+        leading zero.  Which is just to say 7 is the only number less than 10
+        that has the relevant properties.
       </p>
       <p id="closing-2" commentable>
         Of course, the set of circumstances that make 7 such a special number apply

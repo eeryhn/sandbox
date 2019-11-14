@@ -63,12 +63,14 @@ class Comment extends Component {
     this.state.focused = bool;
   }
 
-  onMouseOver(e) {
-
+  onMouseInOut(e, bool) {
+    if(this.props.setHighlight) {
+      this.props.setHighlight(this.props.data.block_id, bool);
+    }
   }
 
   onClick(e) {
-    e.stopPropagation();
+    this.props.setFocus(this.props.data.block_id);
   }
 
   render() {
@@ -76,10 +78,26 @@ class Comment extends Component {
     const { pageId, name, user_id, content, block_id } = this.props.data;
     const date = new Date(this.props.data.created_at);
     const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const dateStr = `${MONTHS[date.getMonth()]} ${date.getDate()} ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()}`;
+    const dateStr = `${date.getHours()}:${("0" + date.getMinutes()).slice(-2)}, ${MONTHS[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`;
+
+    let attr = {
+      className: classes.root,
+      display: `${this.props.hidden ? 'none' : 'block'}`
+    }
+
+    if(this.props.setHighlight) {
+      attr.onMouseEnter = e => {this.onMouseInOut(e, true)};
+      attr.onMouseLeave = e => {this.onMouseInOut(e, false)};
+    }
+
+    if(this.props.setFocus) {
+      attr.onClick = e => {this.onClick(e)};
+    }
 
     return(
-      <Box className={classes.root} onClick={this.onClick} display={`${this.props.hidden ? 'none' : 'block'}`}>
+      <Box
+        {...attr}
+      >
         <Box className={classes.userInfo} display="flex" alignItems="center">
           <Box flexGrow={1}>
             <Typography variant="body2">
@@ -90,42 +108,41 @@ class Comment extends Component {
             {this.state.toggleText}
           </Button>
         </Box>
-        { this.state.expanded &&
-          <Box>
-            <Box className={classes.commentBody}>
-              {content}
-              <UserContext.Consumer>
-                { user => {
-                  if(user) return(
-                    <Box ml={1.5} my={1}>
-                      <Box display="flex" justifyContent="flex-end">
-                        <Button size="small"
-                          variant={`${this.state.replying ? "outlined" : 'text'}`}
-                          onClick={() => this.setState({replying: !this.state.replying})}
-                        >
-                          Reply
-                        </Button>
-                      </Box>
-                      { this.state.replying &&
-                        <CommentForm
-                          pageId={pageId}
-                          blockId={block_id}
-                          parentId ={this.props.cid}
-                          updateComments={this.props.updateComments}/>
-                      }
+        <Box hidden={!this.state.expanded}>
+          <Box className={classes.commentBody}>
+            {content}
+            <UserContext.Consumer>
+              { user => {
+                if(user) return(
+                  <Box ml={1.5} my={1}>
+                    <Box display="flex" justifyContent="flex-end">
+                      <Button size="small"
+                        variant={`${this.state.replying ? "outlined" : 'text'}`}
+                        onClick={() => this.setState({replying: !this.state.replying})}
+                      >
+                        Reply
+                      </Button>
                     </Box>
-                  )
-                  else return;
-                }}
-              </UserContext.Consumer>
-            </Box>
-            { children.length > 0 &&
-              <Box className={classes.children}>
-                {children}
-              </Box>
-            }
+                    <CommentForm
+                      pageId={pageId}
+                      blockId={block_id}
+                      parentId ={this.props.cid}
+                      updateComments={this.props.updateComments}
+                      onSubmit={(e) => {this.setState({replying: false})}}
+                      replying={this.state.replying}
+                    />
+                  </Box>
+                )
+                else return;
+              }}
+            </UserContext.Consumer>
           </Box>
-        }
+          { children.length > 0 &&
+            <Box className={classes.children}>
+              {children}
+            </Box>
+          }
+        </Box>
       </Box>
     );
   }

@@ -39,6 +39,7 @@ function CommentForm(props) {
           type: 'primary'
         })
         if(props.updateComments) props.updateComments();
+        if(props.onSubmit) props.onSubmit();
       })
       .catch( err => {
         console.log(err);
@@ -58,7 +59,7 @@ function CommentForm(props) {
     <UserContext.Consumer>
       { user => {
         if(user) return(
-          <form>
+          <form hidden={props.replying===undefined ? false : !props.replying}>
             <OutlinedInput value={comment} onChange={handleChange}
               fullWidth={true} margin="dense"
               multiline={true} rows={3} rowsMax={9}
@@ -82,7 +83,8 @@ function CommentForm(props) {
 };
 
 CommentForm.propTypes = {
-  blockId: PropTypes.string.isRequired
+  blockId: PropTypes.string.isRequired,
+  replying: PropTypes.bool
 };
 
 export default CommentForm;

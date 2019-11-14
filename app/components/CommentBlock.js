@@ -2,6 +2,8 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles'
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 import axios from 'axios';
@@ -42,7 +44,7 @@ class CommentBlock extends PureComponent {
   }
 
   // simple recursive method to render comment threads
-  makeThreads(key) {
+  makeThreads(key, top = false) {
     const comment = this.state.data[key];
     if(comment) {
       const children = comment.children.map((id) =>
@@ -55,7 +57,10 @@ class CommentBlock extends PureComponent {
           hidden={this.props.selectedTree && !this.props.selectedTree.includes(comment.data.block_id)}
           data={{...comment.data, pageId:this.props.pageId}}
           children={children}
-          updateComments={this.getCommentData}/>
+          updateComments={this.getCommentData}
+          setHighlight={top && this.props.setHighlight}
+          setFocus={top && this.props.setFocus}
+        />
       );
     } else {
       console.warn("Could not find comment with ID: " + key);
@@ -68,16 +73,24 @@ class CommentBlock extends PureComponent {
     if(this.state.data[0]) {
       threads = this.state.data[0].children.map((id) => {
         const commentData = this.state.data[id].data;
-        return this.makeThreads(id);
+        return this.makeThreads(id, true);
       });
     }
     return(
       <Box className={this.props.classes.container}>
+        <IconButton
+          onClick={this.props.selectedHistory.pop}
+          disabled={this.props.selectedHistory.history.length === 0}
+          aria-label="back"
+        >
+          <ArrowBack/>
+        </IconButton>
         { this.props.selectedId &&
           <CommentForm
               pageId={this.props.pageId}
               blockId={this.props.selectedId}
               updateComments={this.getCommentData}
+              show={true}
           />
         }
         {threads}

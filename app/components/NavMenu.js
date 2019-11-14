@@ -37,7 +37,7 @@ export default function NavMenu() {
   const pages = {
     'Neverending Story': '/todos',
     'Misc': {
-      'Cyclic Numbers': 'misc/cyclic-numbers'
+      'Cyclic Numbers': '/misc/cyclic-numbers'
     },
     'In Progress': {
       'Discrete Math Basics': '/discrete/basics'
