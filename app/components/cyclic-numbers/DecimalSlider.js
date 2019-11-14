@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
   gridContainer: {
     display: 'grid',
-    gridTemplateColumns: '7% 39% 3% 39% 7%',
+    gridTemplateColumns: '6% 38% 4% 38% 6%',
     gridGap: '2%'
   },
   buttons: {

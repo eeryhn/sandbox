@@ -24,15 +24,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SplitLayout(props) {
-  const [split, setSplit] = useState(props.split || 0.6);
+  const [split, setSplit] = useState(props.split || 0.4);
   const classes = useStyles();
 
   return(
     <Box height="100%" display="flex" p={0}>
-      <Box className={classes.scroll} flexGrow={1}>
+      <Box className={classes.scroll} flexShrink="0" width={(split*100) + "%"} maxWidth="400px">
         {props.left}
       </Box>
-      <Box className={classes.scroll} width={(split * 100) + "%"} flexShrink="0">
+      <Box className={classes.scroll} flexGrow={1}>
         {props.right}
       </Box>
     </Box>

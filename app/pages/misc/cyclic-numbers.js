@@ -138,7 +138,7 @@ const content =
           Proving the above theorem isn't really in the scope of this writeup.
           The theorem itself isn't really, either, but totient is a funny word
           so...it's worth it? Anyway, let's just take it to be true and
-          see how this detour is relevant.
+          try to justify this detour.
         </Box>
         <Latex>
           Let's let $a = 10$, Euler's Totient Theorem says:
@@ -318,7 +318,7 @@ const content =
           </Latex>
         </Box>
       </div>
-      <div id="carryover-3">
+      <div id="carryover-3" commentable>
         <Box mb={2}>
           To see this in action:  try entering a positive
           number into the textbox.
@@ -354,13 +354,13 @@ const content =
         leading zero.  Which is just to say 7 is the only number less than 10
         that has the relevant properties.
       </p>
-      <p id="closing-2" commentable>
+      <p id="closing-3" commentable>
         Of course, the set of circumstances that make 7 such a special number apply
         to other numbers, such as 17.  They also apply to other numbers in other
         numeric systems.  For instance, 8 (written 13 in quinary) is a cyclic
         number in base 5.
       </p>
-      <p id="closing-3" commentable>
+      <p id="closing-4" commentable>
         On the other hand, cyclic numbers don't exist in all numeric systems, and
         there are reasons for that, as well. But more on that another day.
       </p>

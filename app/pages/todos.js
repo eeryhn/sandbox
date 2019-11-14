@@ -73,7 +73,7 @@ const content =
       <List>
         {nth.map( (item, index) => {
           return(
-            <div key={index} id={`priority-${index}`} style={{margin: '.5rem 0'}} commentable>
+            <div key={index} id={`nth-${index}`} style={{margin: '.5rem 0'}} commentable>
               <ListItem {...item} commentable/>
             </div>
           )
