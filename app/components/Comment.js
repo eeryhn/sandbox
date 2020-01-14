@@ -8,12 +8,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import Markdown from 'react-markdown'
 import CommentForm from './CommentForm';
 import { UserContext } from './UserContext';
 
 const styles = theme => ({
   root: {
-    padding: '.75rem 0 0 .75rem',
+    padding: '.5rem 0 0 .75rem',
     borderLeft: `2px solid ${fade(theme.palette.common.black, 0.1)}`,
     marginBottom: '1rem',
     '&:hover': {
@@ -110,7 +111,7 @@ class Comment extends Component {
         </Box>
         <Box hidden={!this.state.expanded}>
           <Box className={classes.commentBody}>
-            {content}
+            <Markdown source={content}/>
             <UserContext.Consumer>
               { user => {
                 if(user) return(

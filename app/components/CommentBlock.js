@@ -54,7 +54,8 @@ class CommentBlock extends PureComponent {
         <Comment
           key={key}
           cid={key}
-          hidden={this.props.selectedTree && !this.props.selectedTree.includes(comment.data.block_id)}
+          hidden={ this.props.selectedTree &&
+            !this.props.selectedTree.includes(comment.data.block_id)}
           data={{...comment.data, pageId:this.props.pageId}}
           children={children}
           updateComments={this.getCommentData}

@@ -47,7 +47,7 @@ class CommentLayout extends PureComponent {
     const MIN_WIDTH = 750;
 
     this.MAX_STACK = 100;
-    this.commentableNodes = {};
+    this.commentableNodes = {}; // REVIEW: this makes me itchy
     this.commentableSubtrees = this.getCommentableSubtrees(this.props.content);
     this.content =
       <Box
@@ -158,7 +158,8 @@ class CommentLayout extends PureComponent {
     this.setSelected(id);
   }
 
-  // there's probably a way to collapse select and selectAndScroll.
+  // REVIEW: we can kind of collapse select and selectAndScroll.  Not sure
+  //         whether or not we should.
   selectAndScroll(id) {
     if(id === this.state.selected) return;
 

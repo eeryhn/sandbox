@@ -28,7 +28,7 @@ function SplitLayout(props) {
   const classes = useStyles();
 
   return(
-    <Box height="100%" display="flex" p={0}>
+    <Box minHeight="0" display="flex" p={0}>
       <Box className={classes.scroll} flexShrink="0" width={(split*100) + "%"} maxWidth="400px">
         {props.left}
       </Box>
