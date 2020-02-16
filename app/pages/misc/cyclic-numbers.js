@@ -33,14 +33,15 @@ const content =
     <div id="intro" commentable>
       <div id="intro-0" commentable>
         <p>
-          Right.  Jumping right in, then.  Let's talk about a number.
+          Right.  Jumping right in, then.  Let's start with a number.
           In particular, this number:
         </p>
         <Box style={{fontSize: "1.5rem", letterSpacing: ".1rem"}}>
           <Latex displayMode>$$142857$$</Latex>
         </Box>
         <Box mb={1.5}>
-          Because it's special.  Obviously.  Otherwise we wouldn't talk about it.
+          Because it's special.  Of course it's special; why else would we bring
+          it up?  Because it'd be pretty funny.  But, no, this one's actually special.
           Technically speaking, we call this a <b>cyclic number</b> because...well,
           here's a little demo. Try dragging the highlighted segment.
         </Box>
@@ -51,7 +52,7 @@ const content =
       <div id="intro-1" commentable>
         So we can think of a <b>cyclic number</b> as an integer of length <Latex>$n$</Latex>
         for which the first <Latex>$n$</Latex> multiples are represented by a
-        cycling of its digits (i.e. ...revisit above?).
+        cycling of its digits (i.e. ...above?).
       </div>
       <p id="intro-2" commentable>
         In and of itself, this is just a somewhat interesting piece of trivia.
@@ -75,29 +76,34 @@ const content =
           </Latex>
         </NumDisplay>
         <p>
-          Ask me why this is important.
+          Why is this important?
         </p>
       </div>
-      <div id="body-1" commentable>
-        <img
-          src='/static/imgs/1.png'
-          style={{maxWidth: '100%'}}
-        />
-      </div>
-      <Box id="save-the-trees" commentable>
-        And that's how you learned trees are good and you shouldn't
-        waste paper.
+      <Box id="body-1" commentable>
+          Well...remember when you were in gradeschool and half your teacher's job
+          was to keep you busy while the other half was to teach you fun things
+          like cursive and long division?
+          Maybe, one day, teacher asked you to calculate something silly like the
+          decimal representation of <Latex>{'$\\frac{1}{3}$'}</Latex>, or maybe
+          even <Latex>{'$\\frac{1}{7}$'}</Latex>.
       </Box>
-      <Box id="body-2" commentable>
-        And also that, when calculating by way of long division, most decimal
+      <Box id="body-3" commentable>
+        Maybe you noticed right away that, when you came back to a remainder of
+        1, the decimal would repeat and there was no reason to start again.
+        Maybe somebody told you and you didn't beleive them.  Or maybe you were
+        young and not quite as sharp as you are today, and that also became
+        the day you learned trees are good and paper is precious.
+      </Box>
+      <Box id="body-4" commentable>
+        Whatever the case may be, you somehow know now that most decimal
         representations of fractions have repeating segments.  In particular,
         this occurs at the point you see the same remainder twice
         (e.g. <Latex>{'$\\frac{1}{6}$'}</Latex>),
-        or the remainer equals the numerator (e.g <Latex>{'$\\frac{1}{7}$'}</Latex>).
+        or the remainer equals the numerator (as with <Latex>{'$\\frac{1}{7}$'}</Latex>).
       </Box>
     </div>
     <Typography id="title1" variant="h4" commentable>
-      Let's learn a new word
+      Now let's learn a new word
     </Typography>
     <div id="eulers" commentable>
       <p id="eulers-0" commentable>
@@ -343,7 +349,7 @@ const content =
       </p>
       <p id="closing-1" commentable>
         Well, in truth, I hope you learned something new.  I hope it got you a
-        little excited, even.  And there's so much more I can put here.  So much more
+        little excited, even.  There's so much more I can put here.  So much more
         I want to write down.
         Something like — numbers are kind of amazing, and the study of numbers is something
         I think everybody could enjoy on some level.

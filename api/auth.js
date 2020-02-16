@@ -31,11 +31,23 @@ passport.use(new LocalStrategy({
     }
 ));
 
-passport.use(new JWTStrategy({
+passport.use('login-rule', new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_KEY,
+    secretOrKey: process.env.LOGIN_KEY,
     jsonWebTokenOptions: {
       maxAge: '3d'
+    }
+  },
+  function(jwtPayload, done) {
+    return done(null, jwtPayload);
+  }
+))
+
+passport.use('refresh-rule', new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.REFRESH_KEY,
+    jsonWebTokenOptions: {
+      maxAge: '30d'
     }
   },
   function(jwtPayload, done) {
