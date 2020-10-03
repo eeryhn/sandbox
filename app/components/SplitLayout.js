@@ -11,7 +11,7 @@
  */
 
 import { useState } from 'react';
-import ProptTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
 
